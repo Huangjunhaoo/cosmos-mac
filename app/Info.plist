@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>COSMOS</string>
+	<key>CFBundleExecutable</key>
+	<string>COSMOS</string>
+	<key>CFBundleIconFile</key>
+	<string>COSMOS.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>local.cosmos.software</string>
+	<key>CFBundleName</key>
+	<string>COSMOS</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.16.2</string>
+	<key>CFBundleVersion</key>
+	<string>29</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>COSMOS 使用你选择的音频输入来处理声音。只有点击“开始音频”后才会打开音频流。</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+</dict>
+</plist>
