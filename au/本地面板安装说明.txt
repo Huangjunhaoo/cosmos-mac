@@ -1,0 +1,18 @@
+Cosmos 0.1.10 · Mac 音频效果插件（AUv2）
+适用于 macOS 13 或更新版本的 Apple 芯片及 Intel Mac。
+
+安装
+1. 退出 Ableton Live。打开访达，按 ⇧⌘G，输入 ~/Library/Audio/Plug-Ins/Components/ 并回车。如果还没有 Components 文件夹，在上一级 Plug-Ins 里新建即可。
+2. 把解压得到的 Cosmos.component 放进去。如果这里已有 COSMOS Live.component，先把旧版移到插件目录以外，再放入新版。
+3. 打开 Live，在「设置 → Plug-Ins」开启「使用 Audio Units v2」。在浏览器的「插件 → COSMOS」下找到 Cosmos，拖到音频轨或返回轨。如果还没出现，点「重新扫描插件」。
+
+在 Logic Pro 中，把音频轨设成立体声，在音频效果插槽选「音频单元 → COSMOS → Cosmos → 立体声」。在面板上操作目标参数，按 ⌘L，用控制器发送消息，再按 ⌘L 退出学习。
+
+语言
+在面板底部的语言菜单中直接选择，偏好保存在本机。
+
+开始演奏
+点插件底部「使用说明」，可查看 MIDI 踏板的设置。普通 MIDI Map 用 ⌘M 绑定。录音踏板踩下发 127、松开发 0，第一脚开始录，第二脚停止。
+
+本分享版使用本地签名，未经 Apple 公证。若 macOS 阻止首次加载，可参阅 Apple 的说明：
+https://support.apple.com/zh-cn/102445
