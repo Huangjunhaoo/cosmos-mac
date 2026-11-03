@@ -1,0 +1,135 @@
+[zh-Hans]
+安装指南
+解压 ZIP，打开「Cosmos Mac」。单独演奏选独立版，在 Live 或 Logic 里演奏选插件版。两版均需 macOS 13 或更新版本。
+安装独立版|安装 AU 插件|在音频轨上打开|首次打开与更新|Apple 打开说明
+将下方的应用拖入「应用程序」并打开。在面板顶部选语言，再选声卡、输入和输出通道。允许麦克风访问，点击「开始音频」。只有一路吉他或麦克风输入时，打开 MISO 即可获得立体声输出。
+先退出宿主。在访达按 ⇧⌘G，输入下方路径；若没有 Components 文件夹，请创建它。将 Cosmos.component 复制进去。若已有旧版 COSMOS Live.component，先把旧文件移出这个文件夹。
+在「设置 → Plug-Ins」启用 Audio Units v2。从浏览器「插件 → COSMOS」把 Cosmos 拖到音频轨或返回轨。若未出现，点「重新扫描」。
+在立体声音频轨的「音频效果」插槽中选择「音频单元 → COSMOS → Cosmos → 立体声」。若未出现，在「设置 → 插件管理器」中查找 Cosmos。
+更新后提示 AU 无法打开，可先保存工程，完全退出宿主再重开。本版使用本地签名，未经 Apple 公证。如 macOS 拦截首次打开，请参阅 Apple 说明。踏板设置见 Manuals 里的 MIDI 指南。
+[zh-Hant]
+安裝指南
+解壓縮 ZIP，打開「Cosmos Mac」。單獨演奏選獨立版，在 Live 或 Logic 裡演奏選外掛版。兩版均需 macOS 13 或更新版本。
+安裝獨立版|安裝 AU 外掛|在音訊軌上開啟|首次開啟與更新|Apple 開啟說明
+將下方的 App 拖入「應用程式」並開啟。在面板頂部選語言，再選音訊裝置、輸入與輸出通道。允許麥克風存取，點「啟動音訊」。僅有一路吉他或麥克風輸入時，開啟 MISO 即可得到立體聲輸出。
+先結束宿主程式。在 Finder 按 ⇧⌘G，輸入下方路徑；若沒有 Components 資料夾，請建立它。將 Cosmos.component 複製進去。若已有舊版 COSMOS Live.component，先將舊檔移出這個資料夾。
+在「設定 → Plug-Ins」啟用 Audio Units v2。從瀏覽器「外掛 → COSMOS」將 Cosmos 拖到音訊軌或返回軌。若未出現，點「重新掃描」。
+在立體聲軌的「音訊效果」插槽選「Audio Units → COSMOS → Cosmos → Stereo」。若未出現，在「設定 → 外掛管理程式」尋找 Cosmos。
+更新後若顯示 AU 無法開啟，先儲存工程，完全結束宿主後再重開。本版使用本機簽署，未經 Apple 公證。若 macOS 阻擋首次開啟，請參閱 Apple 說明。踏板設定見 Manuals 裡的 MIDI 指南。
+[en]
+Installation guide
+Unzip the download and open “Cosmos Mac”. Use the standalone app to play directly, or the plug-in to play in Live or Logic. Both require macOS 13 or later.
+Install the app|Install the AU|Open it on an audio track|First launch and updates|Apple’s opening guide
+Drag the app below into Applications and open it. Choose your language at the top of the panel, then select your audio device and input/output channels. Allow microphone access and click Start audio. For a single guitar or mic input, enable MISO for stereo output.
+Quit your host. In Finder press ⇧⌘G and enter the path below. Create the Components folder if it is missing. Copy Cosmos.component there. If the older COSMOS Live.component is present, move that file out of this folder first.
+In Settings → Plug-Ins, enable Audio Units v2. In the browser, drag Cosmos from Plug-ins → COSMOS to an audio or return track. If it is missing, click Rescan.
+On a stereo audio track, open an Audio FX slot and choose Audio Units → COSMOS → Cosmos → Stereo. If it is missing, look for Cosmos in Settings → Plug-in Manager.
+If an AU fails to open after an update, save your project, quit the host completely and reopen it. This release is locally signed and has not been notarized by Apple. If macOS blocks first launch, see Apple’s guide. For pedals, see the MIDI guide in Manuals.
+[ja]
+インストールガイド
+ZIP を展開し「Cosmos Mac」を開きます。単体で演奏するならアプリ、Live や Logic で使うならプラグインを選びます。どちらも macOS 13 以降が必要です。
+アプリをインストール|AU をインストール|オーディオトラックで開く|初回起動と更新|Apple の起動ガイド
+下記のアプリを「アプリケーション」にドラッグして開きます。パネル上部で言語を選び、オーディオ機器と入出力チャンネルを指定します。マイクへのアクセスを許可してオーディオを開始します。ギターやマイクが 1 入力なら、MISO をオンにするとステレオで出力されます。
+ホストを終了します。Finder で ⇧⌘G を押し、下記のパスを入力します。Components フォルダがなければ作成し、Cosmos.component をコピーします。旧版の COSMOS Live.component があれば先にフォルダの外へ移します。
+「設定 → Plug-Ins」で Audio Units v2 を有効にします。ブラウザの「プラグイン → COSMOS」から Cosmos をオーディオまたはリターントラックにドラッグします。表示されない場合は再スキャンします。
+ステレオのオーディオトラックで Audio FX スロットを開き、「Audio Units → COSMOS → Cosmos → Stereo」を選びます。表示されない場合は「設定 → プラグインマネージャ」で Cosmos を探します。
+更新直後に AU を開けない場合はプロジェクトを保存し、ホストを終了して開き直します。本版はローカル署名済みで、Apple の公証は受けていません。初回起動をブロックされた場合は Apple の案内を参照してください。ペダル設定は Manuals の MIDI ガイドにあります。
+[es]
+Guía de instalación
+Descomprime el ZIP y abre «Cosmos Mac». Usa la aplicación para tocar por separado o el plug-in para tocar en Live o Logic. Ambas versiones requieren macOS 13 o posterior.
+Instalar la aplicación|Instalar el AU|Abrir en una pista de audio|Primer inicio y actualizaciones|Guía de Apple
+Arrastra la aplicación indicada a Aplicaciones y ábrela. Elige el idioma en la parte superior del panel, y después el dispositivo y los canales de entrada y salida. Permite el acceso al micrófono e inicia el audio. Para una sola entrada de guitarra o micro, activa MISO si quieres salida estéreo.
+Sal del programa anfitrión. En Finder, pulsa ⇧⌘G e introduce la ruta indicada. Crea la carpeta Components si falta. Copia allí Cosmos.component. Si está el archivo antiguo COSMOS Live.component, muévelo primero fuera de esta carpeta.
+En Ajustes → Plug-Ins, activa Audio Units v2. Desde Plug-ins → COSMOS, arrastra Cosmos a una pista de audio o de retorno. Si no aparece, vuelve a explorar los plug-ins.
+En una pista de audio estéreo, abre una ranura Audio FX y elige Audio Units → COSMOS → Cosmos → Stereo. Si no aparece, busca Cosmos en Ajustes → Gestor de plug-ins.
+Si el AU no abre tras actualizar, guarda tu proyecto, sal del anfitrión y vuelve a abrirlo. Esta versión tiene firma local y no está notarizada por Apple. Si macOS bloquea el primer inicio, consulta la guía de Apple. Para pedales, consulta la guía MIDI en Manuals.
+[fr]
+Guide d’installation
+Décompresse le ZIP et ouvre « Cosmos Mac ». Choisis l’application pour jouer en autonomie ou le plug-in pour jouer dans Live ou Logic. Les deux nécessitent macOS 13 ou ultérieur.
+Installer l’application|Installer l’AU|Ouvrir sur une piste audio|Premier lancement et mises à jour|Guide d’Apple
+Glisse l’application indiquée dans Applications et ouvre-la. Choisis la langue en haut du panneau, puis le périphérique audio et les canaux d’entrée et de sortie. Autorise l’accès au micro et démarre l’audio. Pour une seule entrée guitare ou micro, active MISO pour une sortie stéréo.
+Quitte ton logiciel hôte. Dans le Finder, appuie sur ⇧⌘G et saisis le chemin indiqué. Crée le dossier Components s’il manque, puis copies-y Cosmos.component. Si l’ancien fichier COSMOS Live.component est présent, déplace-le d’abord hors de ce dossier.
+Dans Réglages → Plug-Ins, active Audio Units v2. Depuis Plug-ins → COSMOS, glisse Cosmos sur une piste audio ou de retour. S’il est absent, relance l’analyse des plug-ins.
+Sur une piste audio stéréo, ouvre un insert Audio FX et choisis Audio Units → COSMOS → Cosmos → Stereo. Si Cosmos est absent, cherche-le dans Réglages → Gestionnaire de modules.
+Si l’AU ne s’ouvre pas après une mise à jour, enregistre ton projet, quitte l’hôte et relance-le. Cette version est signée localement et n’a pas été notariée par Apple. Si macOS bloque le premier lancement, consulte le guide d’Apple. Pour les pédales, consulte le guide MIDI dans Manuals.
+[de]
+Installationsanleitung
+Entpacke die ZIP-Datei und öffne „Cosmos Mac“. Nutze die App zum eigenständigen Spielen oder das Plug-in in Live oder Logic. Beide benötigen macOS 13 oder neuer.
+App installieren|AU installieren|Auf einer Audiospur öffnen|Erster Start und Updates|Anleitung von Apple
+Ziehe die unten genannte App in den Ordner „Programme“ und öffne sie. Wähle oben im Bedienfeld die Sprache, dann Audiogerät und Ein- und Ausgangskanäle. Erlaube den Mikrofonzugriff und starte das Audio. Aktiviere MISO für einen einzelnen Gitarren- oder Mikrofoneingang mit Stereoausgabe.
+Beende die Host-App. Drücke im Finder ⇧⌘G und gib den Pfad unten ein. Erstelle den Ordner Components, falls er fehlt, und kopiere Cosmos.component hinein. Verschiebe eine alte COSMOS Live.component vorher aus diesem Ordner.
+Aktiviere unter Einstellungen → Plug-Ins die Option Audio Units v2. Ziehe Cosmos aus Plug-ins → COSMOS auf eine Audio- oder Return-Spur. Fehlt das Plug-in, starte einen neuen Scan.
+Öffne auf einer Stereo-Audiospur einen Audio-FX-Slot und wähle Audio Units → COSMOS → Cosmos → Stereo. Fehlt Cosmos, suche unter Einstellungen → Plug-in-Manager danach.
+Öffnet das AU nach einem Update nicht, sichere das Projekt, beende die Host-App und öffne sie erneut. Diese Version ist lokal signiert und wurde nicht von Apple notarisiert. Blockiert macOS den ersten Start, hilft Apples Anleitung. Hinweise zu Pedalen stehen im MIDI-Handbuch unter Manuals.
+[th]
+คู่มือการติดตั้ง
+แตกไฟล์ ZIP แล้วเปิด “Cosmos Mac” ใช้แอปเมื่อต้องการเล่นโดยตรง หรือใช้ปลั๊กอินใน Live หรือ Logic ทั้งสองรุ่นต้องใช้ macOS 13 ขึ้นไป
+ติดตั้งแอป|ติดตั้งปลั๊กอิน AU|เปิดบนแทร็กเสียง|การเปิดครั้งแรกและการอัปเดต|คู่มือการเปิดแอปของ Apple
+ลากแอปที่ระบุด้านล่างไปไว้ใน Applications แล้วเปิดแอป เลือกภาษาที่ด้านบนของแผง จากนั้นเลือกอุปกรณ์เสียงและช่องสัญญาณขาเข้าและขาออก อนุญาตให้ใช้ไมโครโฟนแล้วกดเริ่มเสียง หากใช้กีตาร์หรือไมค์เพียงช่องเดียว ให้เปิด MISO เพื่อส่งออกเป็นสเตอริโอ
+ปิดโปรแกรมโฮสต์ ใน Finder กด ⇧⌘G แล้วใส่พาธด้านล่าง สร้างโฟลเดอร์ Components หากยังไม่มี แล้วคัดลอก Cosmos.component ไปไว้ในนั้น หากมี COSMOS Live.component รุ่นเก่า ให้ย้ายไฟล์เก่าออกจากโฟลเดอร์นี้ก่อน
+ใน Settings → Plug-Ins เปิด Audio Units v2 จากเบราว์เซอร์ที่ Plug-ins → COSMOS ลาก Cosmos ไปยังแทร็กเสียงหรือแทร็กรีเทิร์น หากไม่พบ ให้กด Rescan
+เปิดช่อง Audio FX บนแทร็กเสียงสเตอริโอ แล้วเลือก Audio Units → COSMOS → Cosmos → Stereo หากไม่พบ ให้ค้นหา Cosmos ใน Settings → Plug-in Manager
+หากเปิด AU ไม่ได้หลังอัปเดต ให้บันทึกโปรเจ็กต์ ปิดโฮสต์ให้สนิทแล้วเปิดใหม่ รุ่นนี้ลงนามในเครื่องและยังไม่ได้รับการรับรองจาก Apple หาก macOS บล็อกการเปิดครั้งแรก ให้ดูคู่มือของ Apple วิธีตั้งค่าแป้นเหยียบอยู่ในคู่มือ MIDI ในโฟลเดอร์ Manuals
+[id]
+Panduan instalasi
+Ekstrak ZIP lalu buka “Cosmos Mac”. Gunakan aplikasi untuk bermain langsung, atau plug-in untuk bermain di Live atau Logic. Keduanya memerlukan macOS 13 atau lebih baru.
+Instal aplikasi|Instal AU|Buka di trek audio|Pembukaan pertama dan pembaruan|Panduan Apple
+Seret aplikasi di bawah ke folder Applications lalu buka. Pilih bahasa di bagian atas panel, lalu pilih perangkat audio dan kanal masukan/keluaran. Izinkan akses mikrofon dan mulai audio. Untuk satu masukan gitar atau mikrofon, aktifkan MISO agar keluarannya stereo.
+Tutup aplikasi host. Di Finder tekan ⇧⌘G dan masukkan jalur di bawah. Buat folder Components jika belum ada, lalu salin Cosmos.component ke dalamnya. Jika ada COSMOS Live.component versi lama, pindahkan file lama itu ke luar folder ini terlebih dahulu.
+Di Settings → Plug-Ins, aktifkan Audio Units v2. Seret Cosmos dari Plug-ins → COSMOS di peramban ke trek audio atau return. Jika tidak muncul, pilih Rescan.
+Pada trek audio stereo, buka slot Audio FX dan pilih Audio Units → COSMOS → Cosmos → Stereo. Jika tidak muncul, cari Cosmos di Settings → Plug-in Manager.
+Jika AU tidak terbuka setelah pembaruan, simpan proyek, tutup host sepenuhnya, lalu buka kembali. Rilis ini ditandatangani secara lokal dan belum dinotarisasi oleh Apple. Jika macOS memblokir pembukaan pertama, lihat panduan Apple. Untuk pedal, lihat panduan MIDI di Manuals.
+[hi]
+इंस्टॉल करने की गाइड
+ZIP निकालें और “Cosmos Mac” खोलें। सीधे बजाने के लिए ऐप चुनें। Live या Logic में बजाने के लिए प्लगइन चुनें। दोनों के लिए macOS 13 या बाद का संस्करण चाहिए।
+ऐप इंस्टॉल करें|AU इंस्टॉल करें|ऑडियो ट्रैक पर खोलें|पहली बार खोलना और अपडेट|Apple की गाइड
+नीचे दिए ऐप को Applications फ़ोल्डर में खींचें और खोलें। पैनल के ऊपर भाषा चुनें, फिर ऑडियो डिवाइस और इनपुट/आउटपुट चैनल चुनें। माइक्रोफ़ोन की अनुमति देकर ऑडियो शुरू करें। एक गिटार या माइक इनपुट से स्टीरियो आउटपुट के लिए MISO चालू करें।
+होस्ट ऐप बंद करें। Finder में ⇧⌘G दबाएँ और नीचे दिया पथ डालें। Components फ़ोल्डर न हो तो बनाएँ। Cosmos.component इसमें कॉपी करें। पुरानी COSMOS Live.component फ़ाइल हो तो पहले उसे इस फ़ोल्डर से बाहर ले जाएँ।
+Settings → Plug-Ins में Audio Units v2 चालू करें। ब्राउज़र में Plug-ins → COSMOS से Cosmos को ऑडियो या रिटर्न ट्रैक पर खींचें। न दिखे तो Rescan चुनें।
+स्टीरियो ऑडियो ट्रैक पर Audio FX स्लॉट खोलें और Audio Units → COSMOS → Cosmos → Stereo चुनें। न दिखे तो Settings → Plug-in Manager में Cosmos खोजें।
+अपडेट के बाद AU न खुले तो प्रोजेक्ट सहेजें, होस्ट पूरी तरह बंद करके फिर खोलें। इस संस्करण पर स्थानीय हस्ताक्षर हैं और इसे Apple से नोटरीकरण नहीं मिला है। macOS पहली बार खोलने से रोके तो Apple की गाइड देखें। पैडल के लिए Manuals में MIDI गाइड देखें।
+[vi]
+Hướng dẫn cài đặt
+Giải nén ZIP và mở “Cosmos Mac”. Chọn bản độc lập để chơi trực tiếp, hoặc dùng plug-in trong Live hay Logic. Cả hai cần macOS 13 trở lên.
+Cài ứng dụng|Cài AU|Mở trên track âm thanh|Lần mở đầu và cập nhật|Hướng dẫn của Apple
+Kéo ứng dụng bên dưới vào Applications rồi mở. Chọn ngôn ngữ ở đầu bảng điều khiển, sau đó chọn thiết bị âm thanh và các kênh vào/ra. Cho phép truy cập micrô và bật âm thanh. Với một đầu vào guitar hoặc micrô, bật MISO để có đầu ra stereo.
+Thoát ứng dụng chủ. Trong Finder, nhấn ⇧⌘G và nhập đường dẫn bên dưới. Tạo thư mục Components nếu chưa có, rồi chép Cosmos.component vào đó. Nếu có bản cũ COSMOS Live.component, hãy chuyển tệp cũ ra ngoài thư mục này trước.
+Trong Settings → Plug-Ins, bật Audio Units v2. Kéo Cosmos từ Plug-ins → COSMOS trong trình duyệt vào track âm thanh hoặc return. Nếu không thấy, bấm Rescan.
+Trên track âm thanh stereo, mở một ô Audio FX và chọn Audio Units → COSMOS → Cosmos → Stereo. Nếu không thấy, tìm Cosmos trong Settings → Plug-in Manager.
+Nếu không mở được AU sau khi cập nhật, hãy lưu dự án, thoát hẳn ứng dụng chủ rồi mở lại. Bản này được ký cục bộ và chưa được Apple công chứng. Nếu macOS chặn lần mở đầu, xem hướng dẫn của Apple. Để cài bàn đạp, xem hướng dẫn MIDI trong Manuals.
+[it]
+Guida all’installazione
+Estrai lo ZIP e apri “Cosmos Mac”. Usa l’app per suonare in autonomia o il plug-in per suonare in Live o Logic. Entrambi richiedono macOS 13 o successivo.
+Installare l’app|Installare l’AU|Aprire su una traccia audio|Primo avvio e aggiornamenti|Guida di Apple
+Trascina l’app indicata sotto in Applicazioni e aprila. Scegli la lingua in alto sul pannello, poi il dispositivo audio e i canali di ingresso e uscita. Consenti l’accesso al microfono e avvia l’audio. Per un solo ingresso chitarra o microfono, attiva MISO per ottenere un’uscita stereo.
+Esci dal programma host. Nel Finder premi ⇧⌘G e inserisci il percorso sotto. Se manca, crea la cartella Components. Copiaci Cosmos.component. Se trovi il vecchio COSMOS Live.component, spostalo fuori dalla cartella prima di procedere.
+In Impostazioni → Plug-Ins attiva Audio Units v2. Dal browser, trascina Cosmos da Plug-in → COSMOS su una traccia audio o di ritorno. Se non compare, esegui una nuova scansione.
+Su una traccia audio stereo apri uno slot Audio FX e scegli Audio Units → COSMOS → Cosmos → Stereo. Se non compare, cerca Cosmos in Impostazioni → Gestore plug-in.
+Se l’AU non si apre dopo un aggiornamento, salva il progetto, esci dall’host e riaprilo. Questa versione ha una firma locale e non è stata autenticata da Apple. Se macOS blocca il primo avvio, consulta la guida di Apple. Per i pedali, vedi la guida MIDI in Manuals.
+[pt]
+Guia de instalação
+Descompacte o ZIP e abra “Cosmos Mac”. Use o aplicativo para tocar de forma independente ou o plug-in para tocar no Live ou no Logic. Ambos exigem macOS 13 ou posterior.
+Instalar o aplicativo|Instalar o AU|Abrir em uma faixa de áudio|Primeira abertura e atualizações|Guia da Apple
+Arraste o aplicativo indicado abaixo para Aplicativos e abra-o. Escolha o idioma no topo do painel e selecione o dispositivo e os canais de entrada e saída de áudio. Permita o acesso ao microfone e inicie o áudio. Para uma única entrada de guitarra ou microfone, ative MISO para obter saída estéreo.
+Encerre o aplicativo hospedeiro. No Finder, pressione ⇧⌘G e digite o caminho abaixo. Crie a pasta Components se ela não existir e copie Cosmos.component para ela. Se houver um COSMOS Live.component antigo, mova-o para fora dessa pasta primeiro.
+Em Ajustes → Plug-Ins, ative Audio Units v2. No navegador, arraste Cosmos de Plug-ins → COSMOS para uma faixa de áudio ou de retorno. Se não aparecer, clique em Rescan.
+Em uma faixa de áudio estéreo, abra um slot Audio FX e escolha Audio Units → COSMOS → Cosmos → Stereo. Se não aparecer, procure Cosmos em Ajustes → Gerenciador de plug-ins.
+Se o AU não abrir após uma atualização, salve o projeto, encerre o hospedeiro por completo e abra-o de novo. Esta versão tem assinatura local e não foi autenticada pela Apple. Se o macOS bloquear a primeira abertura, consulte o guia da Apple. Para pedais, veja o guia MIDI em Manuals.
+[ar]
+دليل التثبيت
+فكّ ضغط ملف ZIP وافتح مجلد «Cosmos Mac». اختر التطبيق للعزف المستقل، أو الإضافة للعزف داخل Live أو Logic. يتطلب الإصداران macOS 13 أو أحدث.
+تثبيت التطبيق|تثبيت إضافة AU|الفتح على مسار صوت|التشغيل الأول والتحديث|دليل Apple لفتح التطبيقات
+اسحب التطبيق المبيّن أدناه إلى مجلد التطبيقات وافتحه. اختر اللغة من أعلى اللوحة، ثم جهاز الصوت وقنوات الإدخال والإخراج. اسمح باستخدام الميكروفون وابدأ تشغيل الصوت. مع مدخل غيتار أو ميكروفون واحد، فعّل MISO للحصول على خرج ستيريو.
+أغلق البرنامج المضيف. في Finder اضغط ⇧⌘G وأدخل المسار أدناه. أنشئ مجلد Components إذا كان مفقودًا وانسخ Cosmos.component إليه. إذا وجدت الملف القديم COSMOS Live.component فانقله أولًا إلى خارج هذا المجلد.
+في Settings ثم Plug-Ins فعّل Audio Units v2. من قسم COSMOS ضمن Plug-ins في المتصفح، اسحب Cosmos إلى مسار صوت أو مسار إرجاع. إذا لم يظهر، اضغط Rescan.
+افتح خانة Audio FX على مسار صوت ستيريو. اختر Audio Units ثم COSMOS ثم Cosmos ثم Stereo. إذا لم يظهر، ابحث عنه في Plug-in Manager ضمن الإعدادات.
+إذا لم يُفتح AU بعد التحديث فاحفظ مشروعك وأغلق البرنامج المضيف تمامًا ثم أعد فتحه. هذه النسخة موقّعة محليًا ولم تحصل على توثيق Apple. إذا منع macOS التشغيل الأول فراجع دليل Apple. لإعداد الدواسات راجع دليل MIDI في مجلد Manuals.
+[ko]
+설치 안내서
+ZIP 파일의 압축을 풀고 ‘Cosmos Mac’ 폴더를 여세요. 단독으로 연주하려면 앱을, Live 또는 Logic에서 연주하려면 플러그인을 선택하세요. 두 버전 모두 macOS 13 이상이 필요합니다.
+앱 설치|AU 설치|오디오 트랙에서 열기|처음 열기 및 업데이트|Apple 도움말
+아래 앱을 응용 프로그램 폴더로 드래그한 뒤 여세요. 패널 상단에서 언어를 고르고 오디오 기기와 입출력 채널을 선택합니다. 마이크 접근을 허용하고 오디오를 시작하세요. 기타나 마이크를 한 채널만 연결했다면 MISO를 켜서 스테레오로 출력할 수 있습니다.
+호스트 앱을 종료하세요. Finder에서 ⇧⌘G를 누르고 아래 경로를 입력합니다. Components 폴더가 없으면 만든 뒤 Cosmos.component를 복사하세요. 기존 COSMOS Live.component가 있으면 먼저 이 폴더 밖으로 옮기세요.
+설정 → Plug-Ins에서 Audio Units v2를 켜세요. 브라우저의 Plug-ins → COSMOS에서 Cosmos를 오디오 트랙이나 리턴 트랙으로 드래그합니다. 보이지 않으면 다시 스캔하세요.
+스테레오 오디오 트랙의 Audio FX 슬롯에서 Audio Units → COSMOS → Cosmos → Stereo를 선택하세요. 보이지 않으면 설정 → 플러그인 관리자에서 Cosmos를 찾으세요.
+업데이트 후 AU가 열리지 않으면 프로젝트를 저장하고 호스트를 완전히 종료한 뒤 다시 여세요. 이 버전은 로컬 서명되어 있으며 Apple 공증을 받지 않았습니다. macOS가 처음 열기를 차단하면 Apple 도움말을 참고하세요. 페달 설정은 Manuals의 MIDI 안내서를 보세요.
