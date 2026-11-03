@@ -1,0 +1,150 @@
+[zh-Hans]
+MIDI 映射|独立版|控制器|绑定一个动作|点按与按住|跟随外部时钟|保存到哪里|在 Live 里绑定|踩下与松开|跟随 Live 小节|遇到「等待拾取」
+打开 Cosmos 的「MIDI → MIDI 设置」，选踏板或控制器的输入端口及通道。选要控制的参数，点「学习」，踩一下踏板或转一下旋钮。清空请单独绑定 ERASE ALL。
+选「点按」时，每踩一次只发 127 就可以。自由录音时，第一脚开始，第二脚停止。「按住」跟随脚的动作，踩下发 127，松开发 0。
+在 R / PR 第 1–9 档，启动音频，勾「跟随 MIDI Clock」，选择录 1、2 或 4 小节。外部设备发送时钟并开始播放后，踩 RECORD，下一小节开始录音。第 10–12 档自由运行。
+映射随 Cosmos 预设保存。启用 Program Change 后，PC 0–31 可调用已保存的第 01–32 组。
+把 Cosmos AU 放在吉他音轨或返回轨。打开控制器输入端口的 Remote，展开设备小三角。按 ⌘M，点「RECORD 点按」，踩踏板。为「ERASE ALL 点按」重复一次。按 ⌘M 退出并保存 Live 工程。
+每颗踏板踩下发 127、松开发 0，两条消息用相同通道和 CC。自由录音时，第一脚开始，松脚继续录，第二脚停止。踩一下清空，只会清掉这个插件里的循环。
+R / PR 第 1–9 档可以勾「跟随 Live 小节」。先启动 Live 播放，再踩 RECORD，下一小节开始录音。Live 的 MIDI Map 直接控制参数，无需另建 MIDI 轨。
+松脚再踩一次。如果还在等待，检查松脚是否真的发了 0，以及它是否与踩下使用同一个 CC。这里的映射随 Live 工程保存。
+[zh-Hant]
+MIDI 映射|獨立版|控制器|綁定一個動作|點按與按住|跟隨外部時鐘|儲存位置|在 Live 裡綁定|踩下與放開|跟隨 Live 小節|遇到「等待拾取」
+開啟 Cosmos 的「MIDI → MIDI 設定」，選擇踏板或控制器的輸入埠與通道。選一個參數，點「學習」，踩一下踏板或轉動旋鈕。清除請單獨綁定 ERASE ALL。
+選「點按」時，每次只送 127 即可。自由錄音時，第一腳開始，第二腳停止。「按住」會跟隨腳的動作，踩下送 127，放開送 0。
+在 R / PR 第 1–9 檔啟動音訊，勾選「跟隨 MIDI Clock」，選擇錄 1、2 或 4 小節。外部裝置送出時鐘並開始播放後，踩 RECORD，下一小節開始錄音。第 10–12 檔自由運行。
+映射會隨 Cosmos 預設儲存。啟用 Program Change 後，PC 0–31 可叫出已儲存的第 01–32 組。
+將 Cosmos AU 放在吉他音軌或返回軌。開啟控制器輸入埠的 Remote，展開裝置的小三角。按 ⌘M，點「RECORD 點按」，踩踏板。對「ERASE ALL 點按」重做一次。按 ⌘M 退出並儲存 Live 工程。
+每顆踏板踩下送 127、放開送 0，兩個訊息使用同一通道和 CC。自由錄音時，第一腳開始，放開後繼續錄，第二腳停止。踩一下清除，只會清掉這個外掛的循環。
+R / PR 第 1–9 檔可以勾選「跟隨 Live 小節」。先啟動 Live 播放，再踩 RECORD，下一小節開始錄音。Live 的 MIDI Map 可直接控制參數，無需另建 MIDI 軌。
+先放開再踩一次。若仍在等待，檢查放開時是否送出 0，且與踩下使用同一個 CC。這裡的映射隨 Live 工程儲存。
+[en]
+MIDI mapping|Standalone|Controller|Learn a control|Tap or hold|Follow an external clock|Where mappings are saved|Map in Live|Press and release|Follow Live’s bars|If Live says “Waiting for pickup”
+Open MIDI → MIDI Settings in Cosmos. Select the input port and channel for your pedal or controller. Choose a target, click Learn, then press the pedal or turn a knob. Assign ERASE ALL separately.
+In Tap mode each press can send just 127. In free recording the first press starts and the next stops. For Hold, send 127 when you press and 0 when you release.
+In R / PR programs 1–9, start audio, enable MIDI Clock sync and choose 1, 2 or 4 bars. Start the external clock and transport, then press RECORD. Recording starts on the next bar. Programs 10–12 run freely.
+Cosmos presets save your mappings. Enable Program Change to recall populated slots 01–32 with PC 0–31.
+Insert Cosmos AU on an audio or return track. Enable Remote for the controller’s input port and unfold the device. Press ⌘M, select RECORD tap and press your pedal. Repeat for ERASE ALL tap. Press ⌘M again and save the Live Set.
+For each pedal, send 127 on press and 0 on release, on the same channel and CC. In free mode, press once to record, release to keep recording, then press again to stop. Erase clears only this instance’s loop.
+In R / PR programs 1–9, enable Sync to Live bars. Start Live’s transport, then press RECORD to start on the next bar. Live maps directly to the parameter, so no separate MIDI track is needed.
+Release the pedal and press again. If Live still waits, check that release actually sends 0 on the same CC as the press. Live stores these mappings in the Set.
+[ja]
+MIDI マッピング|スタンドアロン版|コントローラー|操作を割り当てる|タップとホールド|外部クロックに同期|割り当ての保存先|Live で割り当てる|踏む・離す|Live の小節に同期|「ピックアップ待ち」が出たら
+Cosmos の「MIDI → MIDI 設定」でペダルやコントローラーの入力ポートとチャンネルを選びます。対象を選んで「学習」を押し、ペダルを踏むかノブを回します。全消去は ERASE ALL に別途割り当てます。
+タップでは踏むたびに 127 だけ送れます。自由録音は一度目で開始、二度目で停止します。ホールドでは踏んだときに 127、離したときに 0 を送ります。
+R / PR の音色 1–9 ではオーディオを開始し、MIDI Clock 同期を有効にして 1、2、4 小節から選びます。外部クロックと再生を開始して RECORD を踏むと、次の小節から録音します。10–12 は自由に動作します。
+割り当ては Cosmos のプリセットに保存されます。Program Change を有効にすると、PC 0–31 で保存済みのスロット 01–32 を呼び出せます。
+オーディオまたはリターントラックに Cosmos AU を挿入します。入力ポートの Remote を有効にしてデバイスを展開。⌘M を押し、RECORD のタップを選んでペダルを踏みます。ERASE ALL のタップも同様です。⌘M で終了し、Live セットを保存します。
+各ペダルは同じチャンネルと CC で、踏むと 127、離すと 0 を送ります。自由録音では一度踏んで開始、離しても録音は続き、もう一度踏むと停止します。消去の対象はこのプラグインのループだけです。
+R / PR の音色 1–9 では Live の小節同期を有効にできます。Live を再生してから RECORD を踏むと次の小節で録音を開始します。Live が直接割り当てるので、別の MIDI トラックは不要です。
+一度離して踏み直します。まだ待機中なら、離したときに踏んだときと同じ CC で 0 を送るか確認してください。この割り当ては Live セットに保存されます。
+[es]
+Asignación MIDI|Versión autónoma|Controlador|Asignar un control|Toque o pulsación mantenida|Seguir un reloj externo|Dónde se guarda|Asignar en Live|Pisar y soltar|Seguir los compases de Live|Si Live espera la captura
+Abre MIDI → Ajustes MIDI en Cosmos. Elige el puerto de entrada y el canal del pedal o controlador. Selecciona un parámetro, pulsa Aprender y pisa el pedal o gira un mando. Asigna ERASE ALL por separado.
+En modo toque basta con enviar 127 en cada pulsación. En grabación libre, la primera inicia y la siguiente detiene. Para mantener, envía 127 al pisar y 0 al soltar.
+En R / PR 1–9, inicia el audio, activa la sincronización MIDI Clock y elige 1, 2 o 4 compases. Inicia el reloj y la reproducción externos. Pisa RECORD para grabar desde el siguiente compás. Los programas 10–12 funcionan libremente.
+Los presets de Cosmos guardan las asignaciones. Activa Program Change para recuperar las memorias ocupadas 01–32 con PC 0–31.
+Inserta Cosmos AU en una pista de audio o retorno. Activa Remote en la entrada del controlador y despliega el dispositivo. Pulsa ⌘M, elige RECORD de toque y pisa el pedal. Repite con ERASE ALL de toque. Sal con ⌘M y guarda el Set.
+Envía 127 al pisar y 0 al soltar, por el mismo canal y CC. En modo libre, pisa para grabar. Al soltar sigue grabando y al volver a pisar se detiene. Borrar solo vacía el bucle de esta instancia.
+En R / PR 1–9, activa la sincronización con los compases de Live. Inicia la reproducción y pisa RECORD para grabar desde el siguiente compás. La asignación es directa, sin otra pista MIDI.
+Suelta el pedal y vuelve a pisar. Si Live sigue esperando, comprueba que al soltar envía 0 por el mismo CC. Estas asignaciones se guardan en el Set de Live.
+[fr]
+Affectations MIDI|Version autonome|Contrôleur|Associer une commande|Appui bref ou maintenu|Suivre une horloge externe|Enregistrer les affectations|Affecter dans Live|Appuyer et relâcher|Suivre les mesures de Live|Si Live attend le rattrapage
+Dans Cosmos, ouvre MIDI → Réglages MIDI. Choisis le port d’entrée et le canal de la pédale ou du contrôleur. Sélectionne un paramètre, clique sur Apprendre, puis appuie sur la pédale ou tourne un bouton. Affecte ERASE ALL séparément.
+En appui bref, chaque pression peut envoyer uniquement 127. En enregistrement libre, la première lance la prise et la suivante l’arrête. En mode maintenu, envoie 127 à la pression et 0 au relâchement.
+Pour R / PR 1–9, démarre l’audio, active la synchro MIDI Clock et choisis 1, 2 ou 4 mesures. Lance l’horloge et la lecture externes, puis appuie sur RECORD pour enregistrer à la mesure suivante. Les programmes 10–12 restent libres.
+Les presets Cosmos enregistrent les affectations. Active Program Change pour rappeler les mémoires occupées 01–32 avec les messages PC 0–31.
+Insère Cosmos AU sur une piste audio ou de retour. Active Remote sur l’entrée du contrôleur et déplie le périphérique. Appuie sur ⌘M, choisis RECORD en appui bref et actionne la pédale. Répète pour ERASE ALL. Quitte avec ⌘M et enregistre le Set.
+Pour chaque pédale, envoie 127 à la pression et 0 au relâchement sur les mêmes canal et CC. En mode libre, appuie pour enregistrer, relâche sans arrêter, puis appuie à nouveau pour terminer. L’effacement ne vide que la boucle de cette instance.
+Pour R / PR 1–9, active la synchro aux mesures de Live. Lance la lecture dans Live, puis appuie sur RECORD pour démarrer à la mesure suivante. L’affectation est directe, sans piste MIDI supplémentaire.
+Relâche et appuie à nouveau. Si Live attend toujours, vérifie que le relâchement envoie bien 0 sur le même CC. Ces affectations sont enregistrées dans le Set Live.
+[de]
+MIDI-Zuweisung|Standalone-Version|Controller|Bedienelement zuweisen|Tippen oder halten|Externer Clock folgen|Zuweisungen speichern|In Live zuweisen|Drücken und loslassen|Lives Takten folgen|Wenn Live auf Abholung wartet
+Öffne in Cosmos MIDI → MIDI-Einstellungen. Wähle Eingangsport und Kanal des Pedals oder Controllers. Wähle ein Ziel, klicke auf Lernen und tritt aufs Pedal oder drehe einen Regler. Weise ERASE ALL separat zu.
+Beim Tippen reicht bei jedem Druck der Wert 127. Bei freier Aufnahme startet der erste Druck, der nächste stoppt. Zum Halten sende beim Drücken 127 und beim Loslassen 0.
+Starte für R / PR 1–9 das Audio, aktiviere die MIDI-Clock-Synchronisation und wähle 1, 2 oder 4 Takte. Starte externe Clock und Wiedergabe. Drücke RECORD, um ab dem nächsten Takt aufzunehmen. Programme 10–12 laufen frei.
+Cosmos-Presets speichern die Zuweisungen. Bei aktivem Program Change rufen PC 0–31 die belegten Speicherplätze 01–32 auf.
+Lade Cosmos AU auf eine Audio- oder Return-Spur. Aktiviere Fernsteuerung (Remote) am Controller-Eingang und klappe das Gerät auf. Drücke ⌘M, wähle RECORD zum Tippen und tritt aufs Pedal. Wiederhole das für ERASE ALL. Beende mit ⌘M und speichere das Live-Set.
+Sende je Pedal beim Drücken 127 und beim Loslassen 0, jeweils mit gleichem Kanal und CC. Im freien Modus startet ein Druck die Aufnahme. Beim Loslassen läuft sie weiter, beim nächsten Druck stoppt sie. Löschen leert nur den Loop dieser Instanz.
+Aktiviere für R / PR 1–9 die Synchronisation mit Lives Takten. Starte Lives Wiedergabe, dann drücke RECORD für den nächsten Takt. Live weist den Parameter direkt zu, eine zusätzliche MIDI-Spur ist dafür nicht nötig.
+Lass das Pedal los und drücke erneut. Wartet Live weiter, prüfe, ob beim Loslassen wirklich 0 auf demselben CC gesendet wird. Diese Zuweisungen speichert das Live-Set.
+[th]
+การแมป MIDI|รุ่นสแตนด์อโลน|คอนโทรลเลอร์|ผูกตัวควบคุม|แตะหรือกดค้าง|ตามสัญญาณนาฬิกาภายนอก|การบันทึกการแมป|แมปใน Live|เหยียบและปล่อย|ตามห้องเพลงของ Live|ถ้า Live ขึ้น “Waiting for pickup”
+ใน Cosmos เปิด MIDI → การตั้งค่า MIDI เลือกพอร์ตขาเข้าและช่องของแป้นเหยียบหรือคอนโทรลเลอร์ เลือกพารามิเตอร์ กดเรียนรู้ แล้วเหยียบแป้นหรือหมุนปุ่ม ผูก ERASE ALL กับอีกแป้นหนึ่ง
+โหมดแตะส่งแค่ 127 ทุกครั้งที่เหยียบได้ เมื่ออัดแบบอิสระ เหยียบครั้งแรกเพื่อเริ่ม ครั้งถัดไปเพื่อหยุด ส่วนโหมดกดค้างให้ส่ง 127 เมื่อเหยียบ และ 0 เมื่อปล่อย
+สำหรับ R / PR โปรแกรม 1–9 ให้เริ่มระบบเสียง เปิดซิงก์ MIDI Clock แล้วเลือก 1, 2 หรือ 4 ห้อง เริ่มนาฬิกาและการเล่นจากอุปกรณ์ภายนอก แล้วเหยียบ RECORD เพื่ออัดตั้งแต่ห้องถัดไป โปรแกรม 10–12 ทำงานอิสระ
+พรีเซ็ต Cosmos บันทึกการแมปไว้ด้วย เปิด Program Change เพื่อเรียกช่อง 01–32 ที่บันทึกไว้ด้วย PC 0–31
+ใส่ Cosmos AU ในแทร็กเสียงหรือแทร็กรีเทิร์น เปิด Remote ที่พอร์ตขาเข้าของคอนโทรลเลอร์ แล้วกางรายการพารามิเตอร์ กด ⌘M เลือก RECORD แบบแตะแล้วเหยียบแป้น ทำซ้ำกับ ERASE ALL แบบแตะ กด ⌘M เพื่อออกแล้วบันทึก Live Set
+แต่ละแป้นส่ง 127 เมื่อเหยียบและ 0 เมื่อปล่อย โดยใช้ช่องและ CC เดียวกัน เมื่ออัดแบบอิสระ เหยียบครั้งแรกเพื่ออัด ปล่อยแล้วยังอัดต่อ เหยียบอีกครั้งเพื่อหยุด ปุ่มลบจะล้างเฉพาะลูปของปลั๊กอินตัวนี้
+ใน R / PR โปรแกรม 1–9 เปิดการซิงก์กับห้องเพลงของ Live เริ่มเล่นใน Live แล้วเหยียบ RECORD เพื่อเริ่มอัดที่ห้องถัดไป Live แมปถึงพารามิเตอร์โดยตรง จึงไม่ต้องเพิ่มแทร็ก MIDI
+ปล่อยแป้นแล้วเหยียบอีกครั้ง ถ้ายังรออยู่ ให้ตรวจว่าตอนปล่อยส่ง 0 ด้วย CC เดียวกับตอนเหยียบ การแมปชุดนี้บันทึกใน Live Set
+[id]
+Pemetaan MIDI|Versi mandiri|Kontroler|Pelajari kontrol|Ketuk atau tahan|Ikuti clock eksternal|Menyimpan pemetaan|Petakan di Live|Tekan dan lepas|Ikuti birama Live|Jika Live menunggu pickup
+Buka MIDI → Pengaturan MIDI di Cosmos. Pilih port masukan dan kanal pedal atau kontroler. Pilih parameter, klik Pelajari, lalu injak pedal atau putar kenop. Petakan ERASE ALL secara terpisah.
+Pada mode ketuk, setiap injakan cukup mengirim 127. Saat merekam bebas, injakan pertama memulai rekaman dan berikutnya menghentikannya. Untuk menahan, kirim 127 saat ditekan dan 0 saat dilepas.
+Pada R / PR 1–9, mulai audio, aktifkan sinkronisasi MIDI Clock, lalu pilih 1, 2, atau 4 birama. Jalankan clock dan pemutaran eksternal. Injak RECORD untuk mulai merekam pada birama berikutnya. Program 10–12 berjalan bebas.
+Preset Cosmos menyimpan pemetaan. Aktifkan Program Change agar PC 0–31 memanggil slot 01–32 yang sudah terisi.
+Pasang Cosmos AU di trek audio atau return. Aktifkan Remote pada port masukan kontroler dan buka daftar parameter perangkat. Tekan ⌘M, pilih RECORD ketuk, lalu injak pedal. Ulangi untuk ERASE ALL ketuk. Tekan ⌘M untuk keluar dan simpan Live Set.
+Untuk setiap pedal, kirim 127 saat ditekan dan 0 saat dilepas pada kanal dan CC yang sama. Pada mode bebas, injak untuk merekam. Lepaskan agar rekaman berlanjut, injak lagi untuk berhenti. Hapus hanya mengosongkan loop pada instans ini.
+Pada R / PR 1–9, aktifkan sinkronisasi birama Live. Jalankan pemutaran Live, lalu injak RECORD untuk mulai pada birama berikutnya. Live memetakan parameter secara langsung tanpa trek MIDI tambahan.
+Lepaskan pedal lalu injak lagi. Jika Live masih menunggu, pastikan saat dilepas pedal mengirim 0 pada CC yang sama. Pemetaan ini tersimpan di Live Set.
+[hi]
+MIDI मैपिंग|स्टैंडअलोन संस्करण|कंट्रोलर|कंट्रोल जोड़ें|टैप या होल्ड|बाहरी क्लॉक के साथ|मैपिंग कहाँ सहेजें|Live में मैप करें|दबाएँ और छोड़ें|Live के बार के साथ|अगर Live पिकअप का इंतज़ार करे
+Cosmos में MIDI → MIDI सेटिंग्स खोलें। पैडल या कंट्रोलर का इनपुट पोर्ट और चैनल चुनें। पैरामीटर चुनें, सीखें पर क्लिक करें, फिर पैडल दबाएँ या नॉब घुमाएँ। ERASE ALL को अलग से मैप करें।
+टैप मोड में हर बार सिर्फ़ 127 भेजना काफ़ी है। स्वतंत्र रिकॉर्डिंग में पहली बार दबाने पर रिकॉर्डिंग शुरू होती है, अगली बार रुकती है। होल्ड में दबाते समय 127 और छोड़ते समय 0 भेजें।
+R / PR के प्रोग्राम 1–9 में ऑडियो शुरू करें, MIDI Clock सिंक चालू करें और 1, 2 या 4 बार चुनें। बाहरी क्लॉक और प्लेबैक शुरू करें। RECORD दबाएँ, अगले बार से रिकॉर्डिंग होगी। 10–12 स्वतंत्र चलते हैं।
+Cosmos प्रीसेट में मैपिंग भी सहेजी जाती है। Program Change चालू करने पर PC 0–31 से भरे हुए स्लॉट 01–32 खोले जा सकते हैं।
+ऑडियो या रिटर्न ट्रैक पर Cosmos AU लगाएँ। कंट्रोलर के इनपुट पोर्ट पर Remote चालू करके डिवाइस का तीर खोलें। ⌘M दबाएँ, RECORD टैप चुनें और पैडल दबाएँ। ERASE ALL टैप के लिए दोहराएँ। ⌘M से बाहर निकलें और Live सेट सहेजें।
+हर पैडल के लिए उसी चैनल और CC पर दबाने पर 127 और छोड़ने पर 0 भेजें। स्वतंत्र मोड में पहली बार दबाने पर रिकॉर्डिंग शुरू होती है, छोड़ने पर जारी रहती है और अगली बार दबाने पर रुकती है। मिटाने से सिर्फ़ इस प्लगइन का लूप मिटता है।
+R / PR के प्रोग्राम 1–9 में Live बार सिंक चालू करें। Live का प्लेबैक शुरू करें, फिर RECORD दबाएँ ताकि अगले बार पर रिकॉर्डिंग शुरू हो। Live सीधे पैरामीटर को नियंत्रित करता है, अलग MIDI ट्रैक की ज़रूरत नहीं।
+पैडल छोड़कर फिर दबाएँ। इंतज़ार बना रहे तो जाँचें कि छोड़ने पर उसी CC से 0 भेजा जाता है। ये मैपिंग Live सेट में सहेजी जाती हैं।
+[vi]
+Ánh xạ MIDI|Bản độc lập|Bộ điều khiển|Gán một điều khiển|Nhấn hoặc giữ|Theo clock ngoài|Lưu ánh xạ ở đâu|Gán trong Live|Nhấn và nhả|Theo ô nhịp của Live|Nếu Live báo chờ pickup
+Trong Cosmos, mở MIDI → Cài đặt MIDI. Chọn cổng vào và kênh của bàn đạp hoặc bộ điều khiển. Chọn tham số, bấm Học rồi nhấn bàn đạp hoặc xoay núm. Gán riêng ERASE ALL.
+Ở chế độ nhấn, mỗi lần có thể chỉ gửi 127. Khi thu tự do, nhấn lần đầu để thu và nhấn lần nữa để dừng. Ở chế độ giữ, gửi 127 khi nhấn và 0 khi nhả.
+Với chương trình R / PR 1–9, bật âm thanh, bật đồng bộ MIDI Clock rồi chọn 1, 2 hoặc 4 ô nhịp. Bật clock và phát từ thiết bị ngoài, sau đó nhấn RECORD để thu từ ô nhịp tiếp theo. Chương trình 10–12 chạy tự do.
+Preset Cosmos lưu cả ánh xạ. Bật Program Change để gọi các ô 01–32 đã lưu bằng PC 0–31.
+Chèn Cosmos AU vào track âm thanh hoặc return. Bật Remote cho cổng vào của bộ điều khiển rồi mở danh sách tham số. Nhấn ⌘M, chọn RECORD dạng nhấn và đạp bàn đạp. Lặp lại với ERASE ALL dạng nhấn. Nhấn ⌘M để thoát và lưu Live Set.
+Mỗi bàn đạp gửi 127 khi nhấn và 0 khi nhả trên cùng kênh và CC. Ở chế độ tự do, nhấn để thu, nhả vẫn thu, nhấn lần nữa để dừng. Lệnh xóa chỉ xóa vòng lặp của phiên bản plugin này.
+Với R / PR 1–9, bật đồng bộ ô nhịp với Live. Bật phát trong Live rồi nhấn RECORD để bắt đầu ở ô nhịp tiếp theo. Live gán trực tiếp vào tham số, không cần thêm track MIDI.
+Nhả rồi nhấn lại. Nếu Live vẫn chờ, kiểm tra bàn đạp có gửi 0 trên đúng CC khi nhả không. Các ánh xạ này được lưu trong Live Set.
+[it]
+Mappatura MIDI|Versione autonoma|Controller|Associa un controllo|Tocco o pressione mantenuta|Segui un clock esterno|Dove si salva la mappa|Assegna in Live|Premi e rilascia|Segui le battute di Live|Se Live attende l’aggancio
+In Cosmos apri MIDI → Impostazioni MIDI. Scegli porta di ingresso e canale del pedale o controller. Seleziona il parametro, fai clic su Apprendi e premi il pedale o gira la manopola. Assegna ERASE ALL separatamente.
+Per il tocco basta inviare 127 a ogni pressione. In registrazione libera la prima pressione avvia e la seconda ferma. Per la pressione mantenuta invia 127 quando premi e 0 quando rilasci.
+Nei programmi R / PR 1–9 avvia l’audio, attiva la sincronizzazione MIDI Clock e scegli 1, 2 o 4 battute. Avvia il clock e la riproduzione esterni, poi premi RECORD per registrare dalla battuta successiva. I programmi 10–12 sono liberi.
+I preset Cosmos salvano le assegnazioni. Attiva Program Change per richiamare gli slot già salvati 01–32 con PC 0–31.
+Inserisci Cosmos AU in una traccia audio o di ritorno. Attiva Remote sulla porta di ingresso e apri l’elenco dei parametri del dispositivo. Premi ⌘M, seleziona RECORD a tocco e premi il pedale. Ripeti per ERASE ALL. Esci con ⌘M e salva il Live Set.
+Invia 127 alla pressione e 0 al rilascio sullo stesso canale e CC. In modalità libera premi una volta per registrare. Al rilascio la registrazione continua, alla pressione successiva si ferma. La cancellazione svuota solo il loop di questa istanza.
+Nei programmi R / PR 1–9 attiva la sincronizzazione alle battute di Live. Avvia la riproduzione e premi RECORD per partire alla battuta successiva. Live controlla direttamente il parametro, senza una traccia MIDI separata.
+Rilascia il pedale e premi di nuovo. Se Live resta in attesa, controlla che al rilascio venga inviato 0 sullo stesso CC. La mappatura viene salvata nel Live Set.
+[pt]
+Mapeamento MIDI|Versão independente|Controlador|Mapear um controle|Toque ou pressão contínua|Seguir um clock externo|Onde salvar o mapa|Mapear no Live|Pressionar e soltar|Seguir os compassos do Live|Se o Live aguardar a captura
+No Cosmos, abra MIDI → Ajustes MIDI. Escolha a porta de entrada e o canal do pedal ou controlador. Selecione o parâmetro, clique em Aprender e pressione o pedal ou gire o botão. Mapeie ERASE ALL separadamente.
+No modo toque, basta enviar 127 a cada pressão. Na gravação livre, a primeira pressão inicia e a seguinte encerra. Para manter pressionado, envie 127 ao pressionar e 0 ao soltar.
+Nos programas R / PR 1–9, inicie o áudio, ative a sincronização MIDI Clock e escolha 1, 2 ou 4 compassos. Inicie o clock e a reprodução externos. Pressione RECORD para gravar a partir do próximo compasso. Os programas 10–12 rodam livremente.
+Os presets do Cosmos guardam os mapeamentos. Ative Program Change para chamar as posições preenchidas 01–32 com PC 0–31.
+Insira o Cosmos AU numa faixa de áudio ou de retorno. Ative Remote na entrada do controlador e expanda o dispositivo. Pressione ⌘M, selecione RECORD de toque e acione o pedal. Repita para ERASE ALL. Saia com ⌘M e salve o Live Set.
+Em cada pedal, envie 127 ao pressionar e 0 ao soltar, no mesmo canal e CC. No modo livre, pressione para gravar. A gravação continua ao soltar e termina na pressão seguinte. Apagar limpa apenas o loop desta instância.
+Nos programas R / PR 1–9, ative a sincronização com os compassos do Live. Inicie a reprodução e pressione RECORD para começar no próximo compasso. O Live mapeia o parâmetro diretamente, sem outra faixa MIDI.
+Solte o pedal e pressione de novo. Se o Live continuar aguardando, confira se o pedal envia 0 no mesmo CC ao soltar. Estes mapeamentos ficam salvos no Live Set.
+[ar]
+تعيين عناصر MIDI|النسخة المستقلة|وحدة التحكم|تعيين عنصر تحكم|نقرة أم ضغط مطوّل|اتباع ساعة خارجية|مكان حفظ التعيينات|التعيين في Live|الضغط والإفلات|اتباع موازير Live|إذا انتظر Live التقاط القيمة
+افتح إعدادات MIDI في قائمة MIDI داخل Cosmos. اختر منفذ الإدخال وقناة الدواسة أو وحدة التحكم. اختر المعامل واضغط زر التعلّم، ثم اضغط الدواسة أو أدر المقبض. عيّن ERASE ALL بصورة منفصلة.
+في وضع النقر يكفي إرسال 127 مع كل ضغطة. في التسجيل الحر تبدأ الضغطة الأولى التسجيل وتوقفه التالية. للضغط المطوّل أرسل 127 عند الضغط و0 عند الإفلات.
+في برامج R / PR من 1 إلى 9، شغّل الصوت وفعّل المزامنة مع MIDI Clock واختر مازورة واحدة أو اثنتين أو أربعًا. ابدأ الساعة والتشغيل الخارجيين ثم اضغط RECORD ليبدأ التسجيل مع المازورة التالية. تعمل البرامج من 10 إلى 12 بتوقيت حر.
+تحفظ إعدادات Cosmos المسبقة التعيينات. فعّل Program Change لاستدعاء الخانات المحفوظة من 01 إلى 32 برسائل PC من 0 إلى 31.
+أضف Cosmos AU إلى مسار صوت أو مسار إرجاع. فعّل Remote لمنفذ إدخال وحدة التحكم وافتح قائمة معاملات المؤثر. اضغط ⌘M واختر RECORD للنقر ثم اضغط الدواسة. كرّر مع ERASE ALL للنقر. اضغط ⌘M للخروج واحفظ مشروع Live.
+أرسل 127 عند الضغط و0 عند الإفلات على القناة نفسها وبرقم CC نفسه لكل دواسة. في الوضع الحر تبدأ الضغطة الأولى التسجيل ويستمر بعد الإفلات، ثم توقفه الضغطة التالية. يمحو أمر المسح حلقة هذه النسخة من المؤثر فقط.
+في برامج R / PR من 1 إلى 9، فعّل مزامنة موازير Live. ابدأ التشغيل في Live ثم اضغط RECORD لبدء التسجيل في المازورة التالية. يعيّن Live المعامل مباشرةً دون الحاجة إلى مسار MIDI إضافي.
+أفلت الدواسة واضغطها ثانية. إذا استمر الانتظار فتأكد من أنها ترسل 0 عند الإفلات على رقم CC نفسه. تُحفظ هذه التعيينات في مشروع Live.
+[ko]
+MIDI 매핑|독립 실행형|컨트롤러|컨트롤 지정|짧게 또는 길게 누르기|외부 클록에 동기화|매핑 저장 위치|Live에서 매핑|누르기와 떼기|Live 마디에 동기화|Live가 값 인계를 기다릴 때
+Cosmos에서 MIDI → MIDI 설정을 열고 페달이나 컨트롤러의 입력 포트와 채널을 선택하세요. 파라미터를 고르고 학습을 누른 뒤 페달을 밟거나 노브를 돌립니다. 전체 삭제는 ERASE ALL에 따로 지정하세요.
+짧게 누르기는 밟을 때마다 127만 보내도 됩니다. 자유 녹음에서 첫 번째로 밟으면 녹음이 시작되고 다시 밟으면 멈춥니다. 길게 누르기는 밟을 때 127, 뗄 때 0을 보냅니다.
+R / PR 프로그램 1~9에서 오디오를 시작하고 MIDI 클록 동기화를 켠 뒤 1, 2, 4마디 중 하나를 선택하세요. 외부 클록과 재생을 시작한 뒤 RECORD를 밟으면 다음 마디부터 녹음합니다. 10~12는 자유 박자로 작동합니다.
+Cosmos 프리셋에 매핑도 저장됩니다. Program Change를 켜면 PC 0~31로 저장된 슬롯 01~32를 불러올 수 있습니다.
+오디오 트랙이나 리턴 트랙에 Cosmos AU를 넣으세요. 컨트롤러 입력 포트에서 Remote를 켜고 장치의 파라미터 목록을 펼칩니다. ⌘M을 누르고 RECORD 짧게 누르기를 선택한 후 페달을 밟으세요. ERASE ALL도 같은 방법으로 지정합니다. ⌘M으로 나와 Live 세트를 저장하세요.
+페달마다 밟을 때 127, 뗄 때 0을 같은 채널과 CC로 보냅니다. 자유 모드에서는 한 번 밟으면 녹음이 시작되고, 발을 떼도 계속되며, 다시 밟으면 멈춥니다. 지우기는 이 플러그인 인스턴스의 루프만 지웁니다.
+R / PR 프로그램 1~9에서 Live 마디 동기화를 켜세요. Live 재생을 시작하고 RECORD를 밟으면 다음 마디에 녹음이 시작됩니다. Live가 파라미터에 직접 매핑하므로 별도 MIDI 트랙이 필요하지 않습니다.
+발을 뗐다가 다시 밟으세요. 여전히 대기 중이면 발을 뗄 때 누를 때와 같은 CC로 0이 전송되는지 확인하세요. 이 매핑은 Live 세트에 저장됩니다.
