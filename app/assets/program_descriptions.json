@@ -1,0 +1,740 @@
+{
+  "programs": [
+    {
+      "bank": "M",
+      "program": 1,
+      "short_name": "短双延迟",
+      "description": "两条短延迟持续相互错位，把短乐句叠成流动的回声。",
+      "group_index": 0,
+      "group_name": "双延迟",
+      "selector": "0x800",
+      "legacy_interleaved_index": 0,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 4,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/m800_generated.hpp",
+          "function": "m800_step"
+        }
+      ],
+      "uncertainties": [],
+      "manufacturer_approximate_repeat_seconds": 2.5
+    },
+    {
+      "bank": "M",
+      "program": 2,
+      "short_name": "中双延迟",
+      "description": "两条中等长度延迟持续错位，拉开乐句之间的重复间隔。",
+      "group_index": 0,
+      "group_name": "双延迟",
+      "selector": "0x400",
+      "legacy_interleaved_index": 2,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 4,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/m400_generated.hpp",
+          "function": "m400_step"
+        }
+      ],
+      "uncertainties": [],
+      "manufacturer_approximate_repeat_seconds": 9.5
+    },
+    {
+      "bank": "M",
+      "program": 3,
+      "short_name": "长双延迟",
+      "description": "两条长延迟缓慢错位，让长乐句与稀疏声层交替浮现。",
+      "group_index": 0,
+      "group_name": "双延迟",
+      "selector": "0x200",
+      "legacy_interleaved_index": 4,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 4,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/m200_generated.hpp",
+          "function": "m200_step"
+        }
+      ],
+      "uncertainties": [],
+      "manufacturer_approximate_repeat_seconds": 22
+    },
+    {
+      "bank": "M",
+      "program": 4,
+      "short_name": "短四延迟",
+      "description": "四条较短延迟相互错位，把录音分散成多路立体声回声。",
+      "group_index": 1,
+      "group_name": "四延迟",
+      "selector": "0x100",
+      "legacy_interleaved_index": 6,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 4,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/m_four_ring.hpp",
+          "function": "m100_step"
+        }
+      ],
+      "uncertainties": [],
+      "manufacturer_approximate_repeat_seconds": 2.5
+    },
+    {
+      "bank": "M",
+      "program": 5,
+      "short_name": "中四延迟",
+      "description": "四条中等长度延迟交错漂移，形成更舒展的多路回声。",
+      "group_index": 1,
+      "group_name": "四延迟",
+      "selector": "0x80",
+      "legacy_interleaved_index": 8,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 4,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/m80_branch.hpp",
+          "function": "m80_step"
+        }
+      ],
+      "uncertainties": [],
+      "manufacturer_approximate_repeat_seconds": 8.5
+    },
+    {
+      "bank": "M",
+      "program": 6,
+      "short_name": "长四延迟",
+      "description": "四条长延迟交错漂移，让多个乐句在不同间隔反复叠加。",
+      "group_index": 1,
+      "group_name": "四延迟",
+      "selector": "0x40",
+      "legacy_interleaved_index": 10,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 4,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/m_four_ring.hpp",
+          "function": "m40_step"
+        }
+      ],
+      "uncertainties": [],
+      "manufacturer_approximate_repeat_seconds": 11.5
+    },
+    {
+      "bank": "M",
+      "program": 7,
+      "short_name": "巨大空间混响",
+      "description": "模拟巨大空间，清晰的早期回声缓慢汇成弥散的混响。",
+      "group_index": 2,
+      "group_name": "巨型混响",
+      "selector": "0x20",
+      "legacy_interleaved_index": 12,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 5,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/fixed_branches.hpp",
+          "function": "m20_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "M",
+      "program": 8,
+      "short_name": "超大空间混响",
+      "description": "扩大延迟网络的空间尺度，让回声更缓慢地汇入混响。",
+      "group_index": 2,
+      "group_name": "巨型混响",
+      "selector": "0x10",
+      "legacy_interleaved_index": 14,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 5,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/fixed_branches.hpp",
+          "function": "m10_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "M",
+      "program": 9,
+      "short_name": "极大空间混响",
+      "description": "三档中最大的混响空间，让稀疏回声在长时间内展开。",
+      "group_index": 2,
+      "group_name": "巨型混响",
+      "selector": "0x8",
+      "legacy_interleaved_index": 16,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 5,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/fixed_branches.hpp",
+          "function": "m8_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "M",
+      "program": 10,
+      "short_name": "短颗粒延迟",
+      "description": "较短的延迟与颗粒窗口，把录音切成异步漂移的立体声片段。",
+      "group_index": 3,
+      "group_name": "颗粒延迟",
+      "selector": "0x4",
+      "legacy_interleaved_index": 18,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 5,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/head_branches.hpp",
+          "function": "m4_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "M",
+      "program": 11,
+      "short_name": "中颗粒延迟",
+      "description": "中等长度的延迟与颗粒窗口，让声音片段在立体声中漂移。",
+      "group_index": 3,
+      "group_name": "颗粒延迟",
+      "selector": "0x2",
+      "legacy_interleaved_index": 20,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 5,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/head_branches.hpp",
+          "function": "m2_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "M",
+      "program": 12,
+      "short_name": "长颗粒延迟",
+      "description": "大颗粒叠加中央声层，形成有机流动的颗粒延迟。",
+      "group_index": 3,
+      "group_name": "颗粒延迟",
+      "selector": "0x1",
+      "legacy_interleaved_index": 22,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+          "page": 5,
+          "section": "ALGORITHMS"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/head_branches.hpp",
+          "function": "m1_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "R",
+      "program": 1,
+      "short_name": "常规循环",
+      "description": "录音起止确定循环长度，随后按固定长度重复与叠录。",
+      "group_index": 0,
+      "group_name": "循环与错位",
+      "selector": "0x800",
+      "legacy_interleaved_index": 1,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 1,
+          "section": "PROGRAM 1"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r800_generated.hpp",
+          "function": "r800_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "R",
+      "program": 2,
+      "short_name": "8:7错位循环",
+      "description": "左、右循环长度约为8:7，右声道更短，节奏逐轮错位。",
+      "group_index": 0,
+      "group_name": "循环与错位",
+      "selector": "0x400",
+      "legacy_interleaved_index": 3,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 1,
+          "section": "PROGRAM 2"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r400_generated.hpp",
+          "function": "r400_step"
+        }
+      ],
+      "uncertainties": [
+        "8:7或4:3是厂家标称的左:右缓冲长度比例；整数取整和闭区间端点使实际采样周期略有偏差。重复次数比例与长度比例互为倒数。"
+      ],
+      "nominal_left_right_length_ratio": [
+        8,
+        7
+      ],
+      "implementation_detail": "A游标闭区间0..L；B游标闭区间0..trunc(7L/8)。实际周期为(L+1):(trunc(7L/8)+1)。"
+    },
+    {
+      "bank": "R",
+      "program": 3,
+      "short_name": "4:3错位循环",
+      "description": "左、右循环长度约为4:3，右声道更短，节奏逐轮错位。",
+      "group_index": 0,
+      "group_name": "循环与错位",
+      "selector": "0x200",
+      "legacy_interleaved_index": 5,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 1,
+          "section": "PROGRAM 3"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r200_generated.hpp",
+          "function": "r200_step"
+        }
+      ],
+      "uncertainties": [
+        "8:7或4:3是厂家标称的左:右缓冲长度比例；整数取整和闭区间端点使实际采样周期略有偏差。重复次数比例与长度比例互为倒数。"
+      ],
+      "nominal_left_right_length_ratio": [
+        4,
+        3
+      ],
+      "implementation_detail": "A游标闭区间0..L；B游标闭区间0..trunc(3L/4)。实际周期为(L+1):(trunc(3L/4)+1)。"
+    },
+    {
+      "bank": "R",
+      "program": 4,
+      "short_name": "八分随机切片",
+      "description": "把既定循环分成八份，随机选择播放片段并保留节奏框架。",
+      "group_index": 1,
+      "group_name": "随机切片",
+      "selector": "0x100",
+      "legacy_interleaved_index": 7,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 1,
+          "section": "PROGRAM 4"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r100_generated.hpp",
+          "function": "r100_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "R",
+      "program": 5,
+      "short_name": "六分随机切片",
+      "description": "按六份随机抽取循环片段，让三分结构的节奏不断变化。",
+      "group_index": 1,
+      "group_name": "随机切片",
+      "selector": "0x80",
+      "legacy_interleaved_index": 9,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 1,
+          "section": "PROGRAM 5"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r80_generated.hpp",
+          "function": "r80_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "R",
+      "program": 6,
+      "short_name": "五分随机切片",
+      "description": "以五等分片段随机跳转，让五分结构的节奏不断变化。",
+      "group_index": 1,
+      "group_name": "随机切片",
+      "selector": "0x40",
+      "legacy_interleaved_index": 11,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 1,
+          "section": "PROGRAM 6"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r40_generated.hpp",
+          "function": "r40_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "R",
+      "program": 7,
+      "short_name": "八分故障切片",
+      "description": "八分切片加入随机故障变化；DRIFT可开启随机降八度。",
+      "group_index": 2,
+      "group_name": "故障与移调",
+      "selector": "0x20",
+      "legacy_interleaved_index": 13,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 2,
+          "section": "PROGRAM 7"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r20_generated.hpp",
+          "function": "r20_step"
+        }
+      ],
+      "uncertainties": [
+        "厂家将这两档列为实验性故障模式；长时间运行可能出现爆音/咔哒，不能把随机故障描述成保证无瑕的节拍重排。"
+      ]
+    },
+    {
+      "bank": "R",
+      "program": 8,
+      "short_name": "六分故障切片",
+      "description": "六分切片加入随机故障变化；DRIFT可开启随机降八度。",
+      "group_index": 2,
+      "group_name": "故障与移调",
+      "selector": "0x10",
+      "legacy_interleaved_index": 15,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 2,
+          "section": "PROGRAM 8"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r10_generated.hpp",
+          "function": "r10_step"
+        }
+      ],
+      "uncertainties": [
+        "厂家将这两档列为实验性故障模式；长时间运行可能出现爆音/咔哒，不能把随机故障描述成保证无瑕的节拍重排。"
+      ]
+    },
+    {
+      "bank": "R",
+      "program": 9,
+      "short_name": "分形节奏移调",
+      "description": "DRIFT选择降八度、原速或升八度，反向键切换往返扫描。",
+      "group_index": 2,
+      "group_name": "故障与移调",
+      "selector": "0x8",
+      "legacy_interleaved_index": 17,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 2,
+          "section": "PROGRAM 9"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/r8_generated.hpp",
+          "function": "r8_step"
+        }
+      ],
+      "uncertainties": []
+    },
+    {
+      "bank": "R",
+      "program": 10,
+      "short_name": "中四延迟",
+      "description": "四条固定延迟交错漂移，让录音形成多路立体声回声。",
+      "group_index": 3,
+      "group_name": "原版风格",
+      "selector": "0x4",
+      "legacy_interleaved_index": 19,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 2,
+          "section": "PROGRAM 10"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/fixed_branches.hpp",
+          "function": "r4_step"
+        }
+      ],
+      "uncertainties": [
+        "显示名沿用 M5 的延迟线几何对应关系。不同固件的完整算法仍各自运行。"
+      ],
+      "implementation_detail": "四主环容量332838、234383、604711、454709词，与M5的几何相同；不等于完整算法逐位相同。",
+      "name_from_original_program": 5
+    },
+    {
+      "bank": "R",
+      "program": 11,
+      "short_name": "巨大空间混响",
+      "description": "八条不同长度的延迟互相扩散，把回声逐渐织成混响。",
+      "group_index": 3,
+      "group_name": "原版风格",
+      "selector": "0x2",
+      "legacy_interleaved_index": 21,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 2,
+          "section": "PROGRAM 11"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/fixed_branches.hpp",
+          "function": "r2_step"
+        }
+      ],
+      "uncertainties": [
+        "显示名沿用 M7 的延迟线几何对应关系。不同固件的完整算法仍各自运行。"
+      ],
+      "implementation_detail": "八主环长度43156、59661、89175、65182、100559、64189、97482、68677词，与M7的几何相同；不等于完整算法逐位相同。",
+      "name_from_original_program": 7
+    },
+    {
+      "bank": "R",
+      "program": 12,
+      "short_name": "长颗粒延迟",
+      "description": "大颗粒叠加中央声层，形成有机流动的颗粒延迟。",
+      "group_index": 3,
+      "group_name": "原版风格",
+      "selector": "0x1",
+      "legacy_interleaved_index": 23,
+      "sources": [
+        {
+          "kind": "manufacturer_manual",
+          "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+          "page": 2,
+          "section": "PROGRAM 12"
+        },
+        {
+          "kind": "recovered_native_implementation",
+          "path": "cosmos-software/native/head_branches.hpp",
+          "function": "r1_step"
+        }
+      ],
+      "uncertainties": [],
+      "name_from_original_program": 12
+    }
+  ],
+  "schema_version": 1,
+  "notes": [
+    "短名与一句话是便于软件界面阅读的中文概括，不是厂家注册音色名；听感词为结构导向的概括，不代替逐档主观试听。",
+    "固定顺序：每组程序1..12映射selector0x800,0x400,0x200,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1。中央旋钮可按(program-1+delta+12)%12循环，M/R由独立组选择。",
+    "官网R1.51固件页面当前仍直接链接R1.0节奏版手册；各主要行为已与当前恢复实现交叉核对，R10、R11 和 R12 的显示名依次取自 M5、M7 和 M12，节奏档位编号保留。",
+    "M手册约数用于厂家音色说明，不作为本软件46875Hz内部时钟下每条反馈环的精确时间承诺。",
+    "四组外观是三档一组的导航分区；M与R的四组语义不同，不应给R1..9画成M版延迟/混响家族。",
+    "M12和R12统一显示为长颗粒延迟；两者属于相同十二读头颗粒结构。名称统一不代表启动、换档包络及整个固件状态逐位等价。"
+  ],
+  "suggested_groups": [
+    {
+      "bank": "M",
+      "group_index": 0,
+      "programs": [
+        1,
+        2,
+        3
+      ],
+      "short_name": "双延迟"
+    },
+    {
+      "bank": "M",
+      "group_index": 1,
+      "programs": [
+        4,
+        5,
+        6
+      ],
+      "short_name": "四延迟"
+    },
+    {
+      "bank": "M",
+      "group_index": 2,
+      "programs": [
+        7,
+        8,
+        9
+      ],
+      "short_name": "巨型混响"
+    },
+    {
+      "bank": "M",
+      "group_index": 3,
+      "programs": [
+        10,
+        11,
+        12
+      ],
+      "short_name": "颗粒延迟"
+    },
+    {
+      "bank": "R",
+      "group_index": 0,
+      "programs": [
+        1,
+        2,
+        3
+      ],
+      "short_name": "循环与错位"
+    },
+    {
+      "bank": "R",
+      "group_index": 1,
+      "programs": [
+        4,
+        5,
+        6
+      ],
+      "short_name": "随机切片"
+    },
+    {
+      "bank": "R",
+      "group_index": 2,
+      "programs": [
+        7,
+        8,
+        9
+      ],
+      "short_name": "故障与移调"
+    },
+    {
+      "bank": "R",
+      "group_index": 3,
+      "programs": [
+        10,
+        11,
+        12
+      ],
+      "short_name": "原版风格"
+    }
+  ],
+  "primary_manuals": [
+    {
+      "url": "https://drive.google.com/file/d/19DrP4LWvH1os1Ie_m4jmXf7b0Lj0rwEU/view?usp=sharing",
+      "local_path": "cosmos-reverse/work/round21/COSMOS-manual-EN-v1.3-official.pdf",
+      "sha256": "f8e1abc4a962d63351c3fabfb97aa5cda3f78c35d7ecf306172f9e38468b4c75"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1wKgUJ2q1STEv9YI921Kv_5GGIyCiWwCO/view",
+      "local_path": "cosmos-software/research/program-catalog/COSMOS_R1-0-manual-EN-official.pdf",
+      "sha256": "3206bb22bad9612131f3f42e40207f57402d585ac743d6ba826449a1f8a17ca4"
+    }
+  ],
+  "official_firmware_index": "https://somasynths.com/cosmos_firmware/",
+  "ratio_conclusion": "R2是左:右长度8:7；R3是左:右长度4:3。若从右:左长度或左:右循环次数看，R3才会出现3:4，故不要把裸3:4当R2档名。",
+  "source_sha256": {
+    "cosmos-reverse/work/round21/COSMOS-manual-EN-v1.3-official.pdf": "f8e1abc4a962d63351c3fabfb97aa5cda3f78c35d7ecf306172f9e38468b4c75",
+    "cosmos-software/native/dsp.hpp": "0a56b36665a38345cff24363cd571361bb0c430a932527225c2239779661a167",
+    "cosmos-software/native/fixed_branches.hpp": "8580e1fb53c761f8cbc3d579ea30db1b9e14e09f6a65e6a542d4c1367fe528aa",
+    "cosmos-software/native/head_branches.hpp": "624426afb18e101390da57e1ea9f7d8ad6f3538049ed593d5f9317e6a18c3d1d",
+    "cosmos-software/native/m200_generated.hpp": "6ac5eef15993cc2f9d0b1b985eb71655605e0458d0b0c81ed9b481bc3f8430f4",
+    "cosmos-software/native/m400_generated.hpp": "1225efc205c352a08c29fa1172f3dbe1ad03a16388554882970dfa84176afbf3",
+    "cosmos-software/native/m800_generated.hpp": "bb4f5789c2a739024e60e56a959ae0ff82ddea983e841de4938261f10b949148",
+    "cosmos-software/native/m80_branch.hpp": "eabacb7265f79f39a2fda91ec488d6503da0c956b1848b69f76de165bccc6f6a",
+    "cosmos-software/native/m_four_ring.hpp": "b811c19786fc54af71f8f9aab8db307130a8eebb99b0d4dec9954840071bba7a",
+    "cosmos-software/native/processor.hpp": "7fff37978596fffc4e85ff9b07b1854814a163a46f5c529c02c7bafb7823cc82",
+    "cosmos-software/native/r100_generated.hpp": "b3386dd73520d5369c6e6d89b77a848320f60c0ed3b4ed0881026101c06797f3",
+    "cosmos-software/native/r10_generated.hpp": "3fe1a4ec5cc0231895b52885175e6ce026937ab3d8ab43b481681857a3ae987d",
+    "cosmos-software/native/r200_generated.hpp": "ee9d7dcdc7bc65af3ea423146c2523c4edd03222e5f8129d4ec7e7be688baa39",
+    "cosmos-software/native/r20_generated.hpp": "e78b7599f0a86864dfed6bdcfc002ca3efec5fd6260746f383591219d54ebe3b",
+    "cosmos-software/native/r400_generated.hpp": "9716841953344eb13eb66e08a617b5a9fc7315cdfae184a1d60db296b82cc111",
+    "cosmos-software/native/r40_generated.hpp": "afb669b8f8c3583e23a9d991b94d6a20253bfb85da8a2ce06305e06c3ea8c577",
+    "cosmos-software/native/r800_generated.hpp": "1c51b82898931e95bec653b6aadc77a3b7b13b910509c825a046be926bab62ce",
+    "cosmos-software/native/r80_generated.hpp": "d14ffce979bcb3f22dfcd5e74cd76ff0565b71dc9e4c5d52ac2d82c9ce163bd4",
+    "cosmos-software/native/r8_generated.hpp": "316fa890da1716dfbb9c743c41c3347b0f65ca9dca3ede0aa1b6419088f3d7b9",
+    "cosmos-software/research/program-catalog/COSMOS_R1-0-manual-EN-official.pdf": "3206bb22bad9612131f3f42e40207f57402d585ac743d6ba826449a1f8a17ca4"
+  }
+}

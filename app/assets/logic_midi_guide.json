@@ -1,0 +1,227 @@
+{
+  "zh-Hans": {
+    "titles": [
+      "控制器分配",
+      "学习一个参数",
+      "踏板的发值方式",
+      "跟随 Logic 小节",
+      "映射存在哪里"
+    ],
+    "body": [
+      "把 Cosmos 插入音频轨。转一下要控制的旋钮，或点 RECORD。按 ⌘L，确认「控制器分配」显示该参数，再动一下控制器。再按 ⌘L 退出学习。清空请单独绑定右下角的「清除全部录音」。",
+      "踏板踩下发 127、松开发 0，两条消息用同一通道和 CC。在专家视图用「直接」模式。自由录音时，第一脚开始，第二脚停止。清空只作用于这一台 Cosmos。",
+      "在 R / PR 第 1–9 档勾选小节同步，先播放 Logic，再踩 RECORD，从下一小节起录。第 10–12 档自由运行。控制器分配不需要额外的 MIDI 轨。",
+      "Logic 会把分配保存在本机的控制器设置中，可跨工程使用。若踏板控制了别的实例，请检查分配所指的轨道、插件插槽和输入端口。"
+    ]
+  },
+  "zh-Hant": {
+    "titles": [
+      "控制器分配",
+      "學習一個參數",
+      "踏板的傳值方式",
+      "跟隨 Logic 小節",
+      "映射儲存位置"
+    ],
+    "body": [
+      "將 Cosmos 插入音訊軌。轉動目標旋鈕或點 RECORD。按 ⌘L，確認「控制器分配」顯示該參數，再操作控制器。再按 ⌘L 結束學習。清除請另外綁定右下角的「清除全部錄音」。",
+      "踏板踩下送 127、放開送 0，兩個訊息使用相同通道與 CC。在專家檢視選「直接」模式。自由錄音時第一腳開始，第二腳停止。清除只影響這個 Cosmos。",
+      "在 R / PR 第 1–9 檔啟用小節同步，先播放 Logic，再踩 RECORD，下一小節開始錄音。第 10–12 檔自由運行。控制器分配不需要額外的 MIDI 軌。",
+      "Logic 將分配儲存在本機控制器設定中，可跨工程使用。若踏板控制了別的實例，請檢查所指的軌道、外掛插槽與輸入埠。"
+    ]
+  },
+  "ja": {
+    "titles": [
+      "コントローラアサインメント",
+      "パラメータを学習",
+      "ペダルの値",
+      "Logic の小節に同期",
+      "割り当ての保存先"
+    ],
+    "body": [
+      "オーディオトラックに Cosmos を挿入します。ノブを動かすか RECORD を押し、⌘L で割り当て先を確認してからコントローラを操作します。再度 ⌘L で学習を終了します。右下の全消去ボタンは別に割り当てます。",
+      "同じチャンネルと CC で、踏むと 127、離すと 0 を送ります。エキスパート表示で値モードを直接にします。自由録音は一度踏んで開始、もう一度で停止。全消去はこのインスタンスだけに作用します。",
+      "R / PR の音色 1–9 で小節同期を有効にします。Logic の再生中に RECORD を踏むと次の小節から録音します。10–12 は自由に動作します。割り当て用の MIDI トラックは不要です。",
+      "割り当ては Mac の Logic のコントローラ設定に保存され、別のプロジェクトでも使えます。違うインスタンスが反応する場合は、トラック、スロット、入力ポートを確認してください。"
+    ]
+  },
+  "en": {
+    "titles": [
+      "Controller Assignments",
+      "Learn a parameter",
+      "Set up a pedal",
+      "Follow Logic’s bars",
+      "Where assignments are saved"
+    ],
+    "body": [
+      "Insert Cosmos on an audio track. Move a knob or click RECORD. Press ⌘L, check the parameter in Controller Assignments, then move your controller. Press ⌘L again to leave Learn mode. Assign the bottom-right Erase all button separately.",
+      "Send 127 on press and 0 on release using the same channel and CC. Choose Direct value mode in Expert View. In free mode one press starts recording and the next stops it. Erase clears only this instance.",
+      "For R / PR programs 1–9, enable bar sync. Start Logic playback and press RECORD to begin on the next bar. Programs 10–12 run freely. Controller Assignments needs no extra MIDI track.",
+      "Logic saves assignments in its controller settings on this Mac, across projects. If a different instance responds, check the target track, plug-in slot and input port."
+    ]
+  },
+  "es": {
+    "titles": [
+      "Asignaciones de controlador",
+      "Aprender un parámetro",
+      "Configurar el pedal",
+      "Seguir los compases de Logic",
+      "Dónde se guarda"
+    ],
+    "body": [
+      "Inserta Cosmos en una pista de audio. Gira un mando o pulsa RECORD. Pulsa ⌘L, comprueba el parámetro en Asignaciones de controlador y acciona el controlador. Sal con ⌘L. Asigna por separado el botón de borrado total de abajo a la derecha.",
+      "Envía 127 al pisar y 0 al soltar por el mismo canal y CC. En la vista experta, usa el modo de valor Directo. En modo libre, pisa para grabar y vuelve a pisar para detener. Borrar solo vacía esta instancia.",
+      "En R / PR 1–9, activa la sincronización por compases. Inicia la reproducción en Logic y pisa RECORD para grabar desde el siguiente compás. Los programas 10–12 son libres. No hace falta otra pista MIDI.",
+      "Logic guarda las asignaciones en los ajustes de controlador del Mac para todos los proyectos. Si responde otra instancia, revisa la pista, la ranura del plug-in y el puerto de entrada."
+    ]
+  },
+  "fr": {
+    "titles": [
+      "Assignations de contrôleur",
+      "Apprendre un paramètre",
+      "Régler une pédale",
+      "Suivre les mesures de Logic",
+      "Enregistrer les assignations"
+    ],
+    "body": [
+      "Insère Cosmos sur une piste audio. Tourne un bouton ou clique sur RECORD. Appuie sur ⌘L, vérifie le paramètre dans les assignations de contrôleur, puis actionne le contrôleur. Quitte avec ⌘L. Assigne séparément le bouton d’effacement en bas à droite.",
+      "Envoie 127 à la pression et 0 au relâchement sur le même canal et le même CC. Choisis le mode de valeur Direct en vue Expert. En mode libre, un appui lance la prise et le suivant l’arrête. L’effacement ne vide que cette instance.",
+      "Pour R / PR 1–9, active la synchro aux mesures. Lance la lecture dans Logic et appuie sur RECORD pour démarrer à la mesure suivante. Les programmes 10–12 sont libres. Aucune piste MIDI supplémentaire n’est nécessaire.",
+      "Logic conserve ces assignations dans les réglages du contrôleur sur ce Mac, pour tous les projets. Si une autre instance réagit, vérifie la piste, le logement du plug-in et le port d’entrée."
+    ]
+  },
+  "de": {
+    "titles": [
+      "Controller-Zuweisungen",
+      "Parameter anlernen",
+      "Pedal einstellen",
+      "Takten von Logic folgen",
+      "Speicherort"
+    ],
+    "body": [
+      "Lade Cosmos auf eine Audiospur. Bewege den Regler oder klicke auf RECORD. Drücke ⌘L, prüfe den Parameter in den Controller-Zuweisungen und betätige den Controller. Beende den Lernmodus mit ⌘L. Weise die Taste zum Löschen unten rechts separat zu.",
+      "Sende beim Drücken 127 und beim Loslassen 0 auf demselben Kanal und CC. Wähle in der Expertenansicht den Wertmodus Direkt. Im freien Modus startet der erste Druck die Aufnahme, der nächste stoppt sie. Löschen leert nur diese Instanz.",
+      "Aktiviere die Taktsynchronisation für R / PR 1–9. Starte die Wiedergabe in Logic und drücke RECORD für den nächsten Takt. Programme 10–12 laufen frei. Eine zusätzliche MIDI-Spur wird nicht benötigt.",
+      "Logic speichert Zuweisungen projektübergreifend in den Controller-Einstellungen dieses Mac. Reagiert eine andere Instanz, prüfe Zielspur, Plug-in-Slot und Eingangsport."
+    ]
+  },
+  "th": {
+    "titles": [
+      "การกำหนดคอนโทรลเลอร์",
+      "เรียนรู้พารามิเตอร์",
+      "ตั้งค่าแป้นเหยียบ",
+      "ตามห้องเพลงของ Logic",
+      "ตำแหน่งที่บันทึก"
+    ],
+    "body": [
+      "ใส่ Cosmos ในแทร็กเสียง หมุนปุ่มหรือกด RECORD กด ⌘L ตรวจว่าหน้าต่างกำหนดคอนโทรลเลอร์แสดงพารามิเตอร์ที่ต้องการ แล้วขยับคอนโทรลเลอร์ กด ⌘L อีกครั้งเพื่อจบการเรียนรู้ ผูกปุ่มลบทั้งหมดที่มุมขวาล่างแยกต่างหาก",
+      "ส่ง 127 เมื่อเหยียบและ 0 เมื่อปล่อย ใช้ช่องและ CC เดียวกัน เลือกโหมดค่า Direct ในมุมมองผู้เชี่ยวชาญ เมื่ออัดแบบอิสระ เหยียบครั้งแรกเพื่ออัด ครั้งถัดไปเพื่อหยุด ปุ่มลบล้างเฉพาะลูปของปลั๊กอินตัวนี้",
+      "ใน R / PR โปรแกรม 1–9 เปิดซิงก์ห้องเพลง เริ่มเล่นใน Logic แล้วเหยียบ RECORD เพื่อเริ่มอัดที่ห้องถัดไป โปรแกรม 10–12 ทำงานอิสระ ไม่ต้องเพิ่มแทร็ก MIDI เพื่อใช้การกำหนดคอนโทรลเลอร์",
+      "Logic เก็บการกำหนดไว้ในการตั้งค่าคอนโทรลเลอร์บน Mac นี้ ใช้ข้ามโปรเจ็กต์ได้ หากปลั๊กอินตัวอื่นตอบสนอง ให้ตรวจแทร็ก ช่องปลั๊กอิน และพอร์ตขาเข้า"
+    ]
+  },
+  "id": {
+    "titles": [
+      "Penetapan kontroler",
+      "Pelajari parameter",
+      "Atur pedal",
+      "Ikuti birama Logic",
+      "Tempat penyimpanan"
+    ],
+    "body": [
+      "Pasang Cosmos di trek audio. Putar kenop atau klik RECORD. Tekan ⌘L, periksa parameter di Controller Assignments, lalu gerakkan kontroler. Tekan ⌘L lagi untuk keluar. Tetapkan tombol hapus semua di kanan bawah secara terpisah.",
+      "Kirim 127 saat ditekan dan 0 saat dilepas pada kanal dan CC yang sama. Di Expert View pilih mode nilai Direct. Saat merekam bebas, injakan pertama memulai dan berikutnya menghentikan rekaman. Hapus hanya mengosongkan instans ini.",
+      "Pada R / PR 1–9, aktifkan sinkronisasi birama. Mulai pemutaran Logic dan injak RECORD untuk merekam pada birama berikutnya. Program 10–12 berjalan bebas. Tidak perlu trek MIDI tambahan.",
+      "Logic menyimpan penetapan di pengaturan kontroler Mac ini untuk berbagai proyek. Jika instans lain merespons, periksa trek tujuan, slot plug-in, dan port masukan."
+    ]
+  },
+  "hi": {
+    "titles": [
+      "कंट्रोलर असाइनमेंट",
+      "पैरामीटर सीखें",
+      "पैडल सेट करें",
+      "Logic के बार के साथ",
+      "मैपिंग कहाँ रहती है"
+    ],
+    "body": [
+      "ऑडियो ट्रैक पर Cosmos लगाएँ। नॉब घुमाएँ या RECORD क्लिक करें। ⌘L दबाएँ, कंट्रोलर असाइनमेंट में पैरामीटर जाँचें और कंट्रोलर चलाएँ। ⌘L से सीखना बंद करें। नीचे दाईं ओर का सब मिटाएँ बटन अलग से मैप करें।",
+      "एक ही चैनल और CC पर दबाने पर 127, छोड़ने पर 0 भेजें। Expert View में Direct मान मोड चुनें। स्वतंत्र रिकॉर्डिंग में पहली बार दबाने पर शुरू और अगली बार रुकती है। मिटाने से सिर्फ़ इसी प्लगइन का लूप हटता है।",
+      "R / PR के प्रोग्राम 1–9 में बार सिंक चालू करें। Logic का प्लेबैक शुरू करके RECORD दबाएँ। अगले बार से रिकॉर्डिंग होगी। 10–12 स्वतंत्र चलते हैं। मैपिंग के लिए अलग MIDI ट्रैक नहीं चाहिए।",
+      "Logic मैपिंग को इस Mac की कंट्रोलर सेटिंग्स में सहेजता है और इसे दूसरे प्रोजेक्ट में भी इस्तेमाल करता है। गलत प्लगइन प्रतिक्रिया दे तो ट्रैक, प्लगइन स्लॉट और इनपुट पोर्ट जाँचें।"
+    ]
+  },
+  "vi": {
+    "titles": [
+      "Gán bộ điều khiển",
+      "Học tham số",
+      "Thiết lập bàn đạp",
+      "Theo ô nhịp của Logic",
+      "Nơi lưu ánh xạ"
+    ],
+    "body": [
+      "Chèn Cosmos vào track âm thanh. Xoay núm hoặc bấm RECORD. Nhấn ⌘L, kiểm tra tham số trong Controller Assignments rồi thao tác trên bộ điều khiển. Nhấn ⌘L lần nữa để thoát. Gán riêng nút xóa tất cả ở góc dưới bên phải.",
+      "Gửi 127 khi nhấn và 0 khi nhả trên cùng kênh và CC. Trong Expert View, chọn chế độ giá trị Direct. Khi thu tự do, nhấn lần đầu để thu và lần nữa để dừng. Lệnh xóa chỉ xóa vòng lặp của phiên bản này.",
+      "Với R / PR 1–9, bật đồng bộ ô nhịp. Phát trong Logic rồi nhấn RECORD để thu từ ô nhịp tiếp theo. Chương trình 10–12 chạy tự do. Không cần thêm track MIDI để gán điều khiển.",
+      "Logic lưu ánh xạ trong cài đặt bộ điều khiển trên Mac này để dùng chung giữa các dự án. Nếu nhầm phiên bản plugin, kiểm tra track đích, vị trí plugin và cổng vào."
+    ]
+  },
+  "it": {
+    "titles": [
+      "Assegnazioni controller",
+      "Apprendi un parametro",
+      "Configura il pedale",
+      "Segui le battute di Logic",
+      "Dove si salva la mappa"
+    ],
+    "body": [
+      "Inserisci Cosmos su una traccia audio. Gira una manopola o premi RECORD. Premi ⌘L, verifica il parametro in Assegnazioni controller e aziona il controller. Esci con ⌘L. Assegna separatamente il pulsante di cancellazione in basso a destra.",
+      "Invia 127 quando premi e 0 quando rilasci sullo stesso canale e CC. Nella vista esperta scegli il modo valore Diretto. In modalità libera, premi per registrare e premi di nuovo per fermare. La cancellazione riguarda solo questa istanza.",
+      "Per R / PR 1–9, attiva la sincronizzazione alle battute. Avvia la riproduzione in Logic e premi RECORD per registrare dalla battuta seguente. I programmi 10–12 sono liberi. Non serve una traccia MIDI aggiuntiva.",
+      "Logic salva le assegnazioni nelle impostazioni del controller su questo Mac per tutti i progetti. Se risponde un’altra istanza, controlla la traccia, lo slot del plug-in e la porta di ingresso."
+    ]
+  },
+  "pt": {
+    "titles": [
+      "Atribuições de controlador",
+      "Aprender um parâmetro",
+      "Configurar o pedal",
+      "Seguir os compassos do Logic",
+      "Onde salvar o mapa"
+    ],
+    "body": [
+      "Insira o Cosmos em uma faixa de áudio. Gire um botão ou clique em RECORD. Pressione ⌘L, confira o parâmetro em Atribuições de controlador e acione o controlador. Saia com ⌘L. Atribua separadamente o botão de apagar tudo no canto inferior direito.",
+      "Envie 127 ao pressionar e 0 ao soltar pelo mesmo canal e CC. Na visualização avançada, escolha o modo de valor Direto. No modo livre, uma pressão inicia a gravação e a próxima a encerra. Apagar limpa apenas esta instância.",
+      "Em R / PR 1–9, ative a sincronização por compassos. Inicie a reprodução do Logic e pressione RECORD para gravar a partir do próximo compasso. Os programas 10–12 rodam livremente. Não é necessária outra faixa MIDI.",
+      "O Logic guarda as atribuições nos ajustes do controlador deste Mac, para todos os projetos. Se outra instância responder, confira a faixa de destino, o slot do plug-in e a porta de entrada."
+    ]
+  },
+  "ar": {
+    "titles": [
+      "تعيينات وحدة التحكم",
+      "تعلّم معامل",
+      "ضبط الدواسة",
+      "اتباع موازير Logic",
+      "مكان حفظ التعيينات"
+    ],
+    "body": [
+      "أضف Cosmos إلى مسار صوت. أدر مقبضًا أو اضغط RECORD. اضغط ⌘L وتأكد من المعامل في تعيينات وحدة التحكم ثم حرّك وحدة التحكم. اضغط ⌘L مجددًا للخروج. عيّن زر مسح الكل أسفل اليمين بشكل منفصل.",
+      "أرسل 127 عند الضغط و0 عند الإفلات على القناة ورقم CC نفسيهما. اختر وضع القيمة المباشر في عرض الخبير. في الوضع الحر تبدأ ضغطة التسجيل وتوقفه الضغطة التالية. يمسح الزر حلقة هذه النسخة فقط.",
+      "فعّل مزامنة الموازير في برامج R / PR من 1 إلى 9. شغّل النقل في Logic واضغط RECORD ليبدأ التسجيل مع المازورة التالية. تعمل البرامج من 10 إلى 12 بحرية. لا يلزم مسار MIDI إضافي للتعيين.",
+      "يحفظ Logic التعيينات ضمن إعدادات وحدة التحكم على هذا الـMac لجميع المشاريع. إذا استجابت نسخة أخرى فتحقق من المسار المستهدف وموضع المؤثر ومنفذ الإدخال."
+    ]
+  },
+  "ko": {
+    "titles": [
+      "컨트롤러 할당",
+      "파라미터 학습",
+      "페달 설정",
+      "Logic 마디에 동기화",
+      "할당 저장 위치"
+    ],
+    "body": [
+      "오디오 트랙에 Cosmos를 넣고 노브를 돌리거나 RECORD를 클릭하세요. ⌘L을 누르고 컨트롤러 할당 창에서 대상 파라미터를 확인한 뒤 컨트롤러를 조작합니다. 다시 ⌘L로 학습을 끝냅니다. 오른쪽 아래 모두 지우기는 따로 지정하세요.",
+      "누를 때 127, 뗄 때 0을 같은 채널과 CC로 보내세요. 전문가 보기에서 값 모드를 직접(Direct)으로 선택합니다. 자유 녹음은 한 번 밟으면 시작하고 다시 밟으면 멈춥니다. 지우기는 이 인스턴스의 루프에만 적용됩니다.",
+      "R / PR 프로그램 1~9에서 마디 동기화를 켜세요. Logic 재생을 시작하고 RECORD를 밟으면 다음 마디부터 녹음합니다. 10~12는 자유 박자로 작동합니다. 할당을 위한 별도 MIDI 트랙은 필요 없습니다.",
+      "Logic은 이 Mac의 컨트롤러 설정에 할당을 저장해 여러 프로젝트에서 사용합니다. 다른 인스턴스가 반응한다면 대상 트랙, 플러그인 슬롯, 입력 포트를 확인하세요."
+    ]
+  }
+}
