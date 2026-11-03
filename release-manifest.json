@@ -1,0 +1,69 @@
+{
+  "status": "最终定档，开发结束",
+  "date": "2026-11-03",
+  "products": [
+    {
+      "path": "Standalone/COSMOS-0.16.2.app",
+      "version": "0.16.2",
+      "build": "29",
+      "minimum_macos": "13.0",
+      "architecture": [
+        "arm64"
+      ],
+      "executable_sha256": "69495058011a0bbdd3e374e0ff33a5426fab0ed363b20296acc64cdb5f280720"
+    },
+    {
+      "path": "Audio Unit/Cosmos.component",
+      "version": "0.1.10",
+      "build": "12",
+      "minimum_macos": "13.0",
+      "architecture": [
+        "arm64",
+        "x86_64"
+      ],
+      "executable_sha256": "6e95a53672aaddf9fd603abb316806f40595167368d706040214b836b31ec9d1"
+    }
+  ],
+  "local_signing": true,
+  "apple_notarized": false,
+  "share_package": {
+    "filename": "Cosmos-Mac-Final-0.16.2-0.1.10.zip",
+    "bytes": 9758914,
+    "sha256": "485fd50908f35bb88d18e49b1daeef16cb3d55a441503397d8b05da90b787406"
+  },
+  "source_snapshot": {
+    "filename": "Cosmos-Final-source.zip",
+    "sha256": "4bf212e0f2284319d7996ba5c3778386b24764941e393949580619ee8e47c1dc"
+  },
+  "installation_guide": {
+    "filename": "Cosmos Mac/00 - Install Cosmos.pdf",
+    "pages": 16,
+    "sha256": "62c594be0ee3fae7cf8f786f6b01a08d06fa27ff7555fb41012d36910b356ba9"
+  },
+  "languages": [
+    "zh-Hans",
+    "zh-Hant",
+    "ja",
+    "en",
+    "es",
+    "fr",
+    "de",
+    "th",
+    "id",
+    "hi",
+    "vi",
+    "it",
+    "pt",
+    "ar",
+    "ko"
+  ],
+  "verified": {
+    "unchanged_entries_from_previous_share": 113,
+    "new_installation_pdfs": 16,
+    "installed_executables_identical": true,
+    "strict_signatures_and_executable_permissions_after_unpack": true,
+    "original_midi_volume_pages": 45,
+    "installation_language_links": 15,
+    "installation_cards_match_volume_render": true
+  }
+}
