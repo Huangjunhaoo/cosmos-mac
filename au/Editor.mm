@@ -182,6 +182,8 @@ static NSString* HostClockText(NSString* key,CosmosHost host){
     auto menu=^(NSRect frame,SEL action){NSPopUpButton* p=[[NSPopUpButton alloc]initWithFrame:frame pullsDown:NO];p.font=Font(11);p.target=self;p.action=action;[root addSubview:p];return p;};
     auto button=^(NSString* title,NSRect frame,SEL action){NSButton* b=[NSButton buttonWithTitle:title target:self action:action];b.font=Font(11);Place(b,root,frame);return b;};
     Place([[CosmosWordmark alloc]initWithFrame:NSZeroRect],root,NSMakeRect(21,384,180,30));
+    NSString *version=[[NSBundle bundleForClass:self.class] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    Place(Label([@"AU v" stringByAppendingString:version ?: @""],10),root,NSMakeRect(23,368,178,14));
     _bank=menu(NSMakeRect(218,387,163,26),@selector(bankChanged:));for(unsigned i=0;i<6;++i)[_bank addItemWithTitle:cosmos_midi::modeName(i)];
     _layer=menu(NSMakeRect(391,387,118,26),@selector(layerChanged:));[_layer addItemsWithTitles:@[@"前景声面板",@"后景声面板"]];
     _presetButton=button(@"预设",NSMakeRect(514,386,89,26),@selector(presetMenu:));

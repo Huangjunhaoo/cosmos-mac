@@ -2,6 +2,7 @@
 #include "../app/midi_settings.hpp"
 #include <vector>
 using namespace cosmos_au;
+static NSDictionary* slotDocument(const Engine::Patch& patch);
 namespace {
 struct InputList {UInt32 count;AudioBuffer buffers[2];};
 bool supported(AVAudioFormat* f){
@@ -9,6 +10,7 @@ bool supported(AVAudioFormat* f){
 }
 }
 @implementation CosmosAUUnit {
+    NSMutableDictionary<NSString*,NSString*> *_embeddedNames;
     CXLibrary *_library;dispatch_source_t _programTimer;
     std::unique_ptr<Engine> _core;
     AUAudioUnitBusArray *_inputs,*_outputs;
@@ -55,8 +57,32 @@ bool supported(AVAudioFormat* f){
         auto s=saved;if(s.midi){s.midi->channel=u.engine->channel;s.midi->programChange=u.engine->pc;}
         u.engine->releasePending=true;[u restoreSound:s];return YES;
     };
-    _library.legacyOccupied=^BOOL(NSInteger n){CosmosAUUnit*u=weak;Engine::Patch p;return u&&n>=0&&n<32&&u.engine->readSlot(unsigned(n),p);};
-    _library.legacyRecall=^BOOL(NSInteger n){CosmosAUUnit*u=weak;if(!u||!u.library.legacyOccupied(n))return NO;
+    _embeddedNames = [NSMutableDictionary new];
+    _library.legacyName = ^NSString*(NSInteger n) {
+        CosmosAUUnit *u = weak;
+        if (!u || n < 0 || n >= 32 || !u.engine->slots[n].serial.load()) return nil;
+        @synchronized(u) { return u->_embeddedNames[@(n).stringValue] ?: [NSString stringWithFormat:@"PC %ld", (long)n]; }
+    };
+    _library.legacyEntry = ^NSDictionary*(NSInteger n) {
+        CosmosAUUnit *u = weak;
+        Engine::Patch patch;
+        if (!u || n < 0 || n >= 32) return nil;
+        @synchronized(u) {
+            if (!u.engine->readSlot(unsigned(n), patch)) return nil;
+            return @{@"name":u.library.legacyName(n), @"embedded":slotDocument(patch)};
+        }
+    };
+    _library.editLegacy = ^BOOL(NSInteger n, NSDictionary *expected, NSString *name) {
+        CosmosAUUnit *u = weak;
+        if (!u) return NO;
+        @synchronized(u) {
+            if (![u.library.legacyEntry(n) isEqual:expected]) return NO;
+            u->_embeddedNames[@(n).stringValue] = name;
+            if (!name) u.engine->writeSlot(unsigned(n), nullptr);
+        }
+        return YES;
+    };
+    _library.legacyRecall=^BOOL(NSInteger n){CosmosAUUnit*u=weak;if(!u||!u.library.legacyName(n))return NO;
         int channel=u.engine->channel;u.engine->recall(unsigned(n));u.engine->channel=channel;return YES;};
     _library.channel=^NSInteger{CosmosAUUnit*u=weak;return u?int(u.engine->channel):-1;};
     _library.setChannelValue=^(NSInteger ch){CosmosAUUnit*u=weak;if(u)u.engine->channel=int(ch);};
@@ -185,6 +211,7 @@ static bool decodeSlot(id doc,Engine::Patch& out){
 - (NSDictionary*)fullState{
     NSMutableDictionary* d=[[super fullState]mutableCopy]?:[NSMutableDictionary new];d[@"COSMOS"]=cosmos_presets::encode([self soundState]);
     NSMutableArray* slots=[NSMutableArray new];@synchronized(self){
+        d[@"COSMOSGroupNames"] = [_embeddedNames copy];
         for(unsigned i=0;i<32;++i){Engine::Patch p;[slots addObject:_core->readSlot(i,p)?slotDocument(p):@{}];}
     }
     if(_library.baseline)d[@"CosmosLibraryReference"]=_library.baseline;d[@"CosmosLibrarySlot"]=@(_library.active);d[@"CosmosLibraryName"]=_library.name?:@"";d[@"COSMOSPanel"]=slotDocument(_core->capture());d[@"COSMOSGroups"]=slots;d[@"COSMOSGroupIndex"]=@(_core->selectedSlot.load());return d;
@@ -198,7 +225,16 @@ static bool decodeSlot(id doc,Engine::Patch& out){
         for(unsigned i=0;i<32;++i){id item=groups[i];if([item isEqual:@{}])continue;
             decoded[i].emplace();if(!decodeSlot(item,*decoded[i]))return;}
     }
-    @synchronized(self){if(groups)for(unsigned i=0;i<32;++i)_core->writeSlot(i,decoded[i]?&*decoded[i]:nullptr);}
+    if (groups) @synchronized(self) {
+        [_embeddedNames removeAllObjects];
+        NSDictionary *names = state[@"COSMOSGroupNames"];
+        for (unsigned i=0; i<32; ++i) {
+            _core->writeSlot(i, decoded[i] ? &*decoded[i] : nullptr);
+            NSString *key = @(i).stringValue;
+            if (decoded[i] && [names isKindOfClass:NSDictionary.class] && names[key])
+                _embeddedNames[key] = cosmos_preset_bank::normalizedName(names[key]);
+        }
+    }
     id index=state[@"COSMOSGroupIndex"];if([index isKindOfClass:NSNumber.class]){_core->selectedSlot=std::clamp([index intValue],0,31);_core->values[PresetSlot]=float(_core->selectedSlot.load()+1);}
     _core->pendingPC=-1;_core->releasePending=true;[self restoreSound:sound];
     if(state[@"COSMOSPanel"])for(unsigned i=0;i<Count;++i)if(isSoundValue(i))_core->set(i,panel.parameters[i]);
