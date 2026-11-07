@@ -6,7 +6,9 @@
 @property(copy) cosmos_presets::State (^capture)(void);
 @property(copy) BOOL (^applySound)(const cosmos_presets::State&, NSString*);
 @property(copy) BOOL (^legacyRecall)(NSInteger);
-@property(copy) BOOL (^legacyOccupied)(NSInteger);
+@property(copy) NSString* (^legacyName)(NSInteger);
+@property(copy) NSDictionary* (^legacyEntry)(NSInteger);
+@property(copy) BOOL (^editLegacy)(NSInteger, NSDictionary*, NSString*);
 @property(copy) NSInteger (^channel)(void);
 @property(copy) void (^setChannelValue)(NSInteger);
 @property(readonly) NSInteger active;
@@ -19,9 +21,9 @@
 - (BOOL)reload;
 - (NSString*)nameAt:(NSInteger)index;
 - (BOOL)load:(NSInteger)index;
-- (BOOL)save:(NSInteger)index name:(NSString*)name emptyOnly:(BOOL)emptyOnly;
-- (BOOL)changed;
-- (NSInteger)vacancy:(NSInteger)preferred;
+- (BOOL)save:(NSInteger)index name:(NSString*)name;
+- (NSDictionary*)entryAt:(NSInteger)index;
+- (BOOL)edit:(NSInteger)index expected:(NSDictionary*)entry newName:(NSString*)name;
 - (void)track:(NSInteger)slot name:(NSString*)name;
 @end
 

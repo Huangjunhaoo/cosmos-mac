@@ -162,12 +162,10 @@ struct FileLock {
     FileLock &operator=(const FileLock &) = delete;
 };
 
-inline bool saveSlot(NSURL *url, size_t index, NSString *name, const cosmos_presets::State &state,
-                     NSError **error = nullptr, bool emptyOnly = false) {
+template<class Edit>
+inline bool editSlot(NSURL *url, size_t index, Edit edit, NSError **error = nullptr) {
     if (!url.isFileURL) return fail(error, CL(@"预设库必须保存在电脑上的本地文件夹。"));
     if (index >= slotCount) return fail(error, CL(@"请选择 1–128 之间的预设槽位。"));
-    NSString *trimmed = normalizedName(name, error);
-    if (!trimmed || !cosmos_presets::encode(state, error)) return false;
     NSError *detail = nil;
     if (![[NSFileManager defaultManager] createDirectoryAtURL:url.URLByDeletingLastPathComponent
                                 withIntermediateDirectories:YES attributes:nil error:&detail])
@@ -182,13 +180,22 @@ inline bool saveSlot(NSURL *url, size_t index, NSString *name, const cosmos_pres
     Bank latest;
     if (!loadBank(url, latest, &detail))
         return fail(error, CL(@"现有预设库无法安全读取，已停止保存并保留原文件。"), detail);
-    if (emptyOnly && latest.slots[index].state) return fail(error, CL(@"槽位已被使用。"));
-    latest.slots[index].name = trimmed;
-    latest.slots[index].state = state;
+    if (!edit(latest.slots[index], error)) return false;
     NSData *data = encodeData(latest, error);
     if (!data) return false;
     if (![data writeToURL:url options:NSDataWritingAtomic error:&detail])
         return fail(error, CL(@"预设保存失败，请检查文件夹权限和可用空间。原预设库会保留。"), detail);
     return true;
+}
+inline bool saveSlot(NSURL *url, size_t index, NSString *name, const cosmos_presets::State &state,
+                     NSError **error = nullptr, bool emptyOnly = false) {
+    NSString *trimmed = normalizedName(name, error);
+    if (!trimmed || !cosmos_presets::encode(state, error)) return false;
+    return editSlot(url, index, [&](Slot &slot, NSError **detail) {
+        if (emptyOnly && slot.state) return fail(detail, CL(@"槽位已被使用。"));
+        slot.name = trimmed;
+        slot.state = state;
+        return true;
+    }, error);
 }
 } // namespace cosmos_preset_bank

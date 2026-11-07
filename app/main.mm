@@ -241,7 +241,7 @@ using cosmos_desktop::DesktopAudio;
     PaperView *container=[[PaperView alloc]initWithFrame:_window.contentView.bounds];_window.contentView=container;
     PaperView *root=[[PaperView alloc]initWithFrame:container.bounds];_mainPanel=root;[container addSubview:root];
     CosmosWordmark *wordmark=[[CosmosWordmark alloc]initWithFrame:NSZeroRect];
-    NSTextField *subtitle=Label(@"DRIFTING MEMORY STATION",9,Muted());
+    NSTextField *subtitle=Label([NSString stringWithFormat:@"DRIFTING MEMORY STATION   ·   v%@", [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]],9,Muted());
     NSStackView *brand=Stack(@[wordmark,subtitle],NSUserInterfaceLayoutOrientationVertical,3);brand.alignment=NSLayoutAttributeLeading;
     _bankSwitch=[[FirmwareMenu alloc]initWithFrame:NSZeroRect pullsDown:NO];[_bankSwitch addItemsWithTitles:@[@"M1.41 前景声原版",@"R1.51 节奏版",@"M1.41 后景声版",@"前后四声道模式",@"PM1.61 变速原版",@"PR1.61 变速节奏版"]];_bankSwitch.target=self;_bankSwitch.action=@selector(bankChanged:);
     _bankSwitch.selectedSegment=0;_bankSwitch.font=Font(10,NSFontWeightMedium);_bankSwitch.accessibilityLabel=@"固件版本";Fix(_bankSwitch,0,29);_firmwareWidth=[_bankSwitch.widthAnchor constraintEqualToConstant:130];_firmwareWidth.active=YES;
