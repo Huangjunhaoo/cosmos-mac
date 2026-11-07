@@ -31,7 +31,7 @@ static NSString* HostClockText(NSString* key,CosmosHost host){
     ProgramDial* _dial;NSArray<ParameterDial*>* _knobs;NSArray<MomentaryButton*>* _pedals;
     NSButton *_sync;NSTextField *_name,*_note,*_reference,*_status;
 #ifdef COSMOS_LIVE_GUIDE
-    NSView *_panel,*_guide;
+    NSView *_panel,*_guide;CXDrawer *_drawer;NSButton *_presetButton;
     NSButton *_guideButton; NSPopUpButton* _languagePicker;
 #endif
     NSTimer *_timer; bool _rear; unsigned _dragParameter; void (^_hostChange)(unsigned,float);
@@ -132,19 +132,28 @@ static NSString* HostClockText(NSString* key,CosmosHost host){
     if(!_unit)return;NSOpenPanel* panel=[NSOpenPanel openPanel];panel.allowsMultipleSelection=NO;
     [panel beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse response){
         if(response!=NSModalResponseOK)return;cosmos_presets::State state;NSError* error=nil;
-        if(cosmos_presets::load(panel.URL,state,&error)){self->_unit.engine->releasePending=true;[self->_unit restoreSound:state];[self refresh];}
+        if(cosmos_presets::load(panel.URL,state,&error)){self->_unit.engine->releasePending=true;[self->_unit restoreSound:state];[self->_unit.library track:-1 name:panel.URL.lastPathComponent.stringByDeletingPathExtension];[self refresh];}
         else self->_status.stringValue=error.localizedDescription;
     }];
 }
 - (void)presetMenu:(id)sender{
-    if(!_unit)return;auto& e=*_unit.engine;NSMenu* menu=[NSMenu new];NSMenu* slots=[NSMenu new];
-    NSMenuItem* header=[menu addItemWithTitle:CL(@"选择音色组") action:nil keyEquivalent:@""];header.submenu=slots;
-    for(unsigned i=0;i<32;++i){auto item=[slots addItemWithTitle:[NSString stringWithFormat:@"%02u · %@",i+1,e.slots[i].serial.load()?CL(@"已保存"):CL(@"空")] action:@selector(selectSlot:) keyEquivalent:@""];
-        item.tag=i;item.target=self;item.state=int(i)==e.selectedSlot.load();}
-    auto save=[menu addItemWithTitle:[NSString stringWithFormat:CL(@"保存到第 %02d 组"),e.selectedSlot.load()+1] action:@selector(storeSlot:) keyEquivalent:@""];save.target=self;
-    [menu addItem:NSMenuItem.separatorItem];[menu addItemWithTitle:CL(@"加载预设文件…") action:@selector(loadFile:) keyEquivalent:@""].target=self;
-    [menu addItemWithTitle:CL(@"另存为预设文件…") action:@selector(saveFile:) keyEquivalent:@""].target=self;
-    [menu popUpMenuPositioningItem:nil atLocation:NSMakePoint(0,0) inView:sender];
+    if(!_unit)return;
+    if(!_drawer){
+        _drawer=[[CXDrawer alloc]initWithParent:self.view library:_unit.library];
+        __weak CosmosAUView *weak=self;
+        _drawer.visibilityChanged=^(BOOL open){CosmosAUView*v=weak;if(!v||!v->_panel)return;
+            // Keep every knob accessible even in hosts that fix the editor window size.
+            CGFloat scale=open?(880.-254.)/880.:1.;
+            v->_panel.frame=NSMakeRect(0,(430.-430.*scale)/2.,880.*scale,430.*scale);
+            v->_panel.bounds=NSMakeRect(0,0,880,430);
+        };
+        _drawer.fileMenu=^(NSButton*b){CosmosAUView*v=weak;if(!v)return;NSMenu*m=[NSMenu new];
+            [m addItemWithTitle:CL(@"加载预设文件…") action:@selector(loadFile:) keyEquivalent:@""].target=v;
+            [m addItemWithTitle:CL(@"另存为预设文件…") action:@selector(saveFile:) keyEquivalent:@""].target=v;
+            [m popUpMenuPositioningItem:nil atLocation:NSZeroPoint inView:b];};
+    }
+    [_drawer toggle];
+
 }
 - (void)tapHostParameter:(unsigned)address{
     [self write:address value:1];[self write:address value:0];
@@ -167,7 +176,7 @@ static NSString* HostClockText(NSString* key,CosmosHost host){
 - (void)loadView{
     PaperView* root=[[PaperView alloc]initWithFrame:NSMakeRect(0,0,880,430)];self.view=root;self.preferredContentSize=root.frame.size;
 #ifdef COSMOS_LIVE_GUIDE
-    NSView* container=[[NSView alloc]initWithFrame:root.frame];[container addSubview:root];self.view=container;_panel=root;
+    NSView* container=[[PaperView alloc]initWithFrame:root.frame];[container addSubview:root];self.view=container;_panel=root;
     container.appearance=[NSAppearance appearanceNamed:NSAppearanceNameAqua];
 #endif
     auto menu=^(NSRect frame,SEL action){NSPopUpButton* p=[[NSPopUpButton alloc]initWithFrame:frame pullsDown:NO];p.font=Font(11);p.target=self;p.action=action;[root addSubview:p];return p;};
@@ -175,7 +184,7 @@ static NSString* HostClockText(NSString* key,CosmosHost host){
     Place([[CosmosWordmark alloc]initWithFrame:NSZeroRect],root,NSMakeRect(21,384,180,30));
     _bank=menu(NSMakeRect(218,387,163,26),@selector(bankChanged:));for(unsigned i=0;i<6;++i)[_bank addItemWithTitle:cosmos_midi::modeName(i)];
     _layer=menu(NSMakeRect(391,387,118,26),@selector(layerChanged:));[_layer addItemsWithTitles:@[@"前景声面板",@"后景声面板"]];
-    button(@"音色组 ▾",NSMakeRect(514,386,89,26),@selector(presetMenu:));
+    _presetButton=button(@"预设",NSMakeRect(514,386,89,26),@selector(presetMenu:));
     _sync=[NSButton checkboxWithTitle:@"跟随 Live 小节" target:self action:@selector(syncChanged:)];_sync.font=Font(11);Place(_sync,root,NSMakeRect(617,386,120,26));
     _bars=menu(NSMakeRect(747,387,110,26),@selector(barsChanged:));[_bars addItemsWithTitles:@[@"录 1 小节",@"录 2 小节",@"录 4 小节"]];
     __weak CosmosAUView* weak=self;_dial=[[ProgramDial alloc]initWithFrame:NSZeroRect];_dial.changed=^(NSInteger index){CosmosAUView* v=weak;if(v)[v write:v->_rear?RearProgram:Program value:index+1];};
@@ -222,6 +231,7 @@ static NSString* HostClockText(NSString* key,CosmosHost host){
 - (void)refresh{
     cosmos_language::syncPreference();
     if(!_unit||!_dial)return;auto& e=*_unit.engine;unsigned bank=e.values[Bank];if(bank!=3)_rear=false;
+    [_drawer tick];_presetButton.title=_unit.library.name.length?_unit.library.name:CL(@"预设");_presetButton.toolTip=_presetButton.title;
     if(_bank.indexOfSelectedItem!=bank)[_bank selectItemAtIndex:bank];_layer.hidden=bank!=3;_bank.toolTip=_bank.titleOfSelectedItem;
     if(_layer.indexOfSelectedItem!=int(_rear))[_layer selectItemAtIndex:_rear?1:0];
     _sync.state=e.values[Sync]!=0;if(_bars.indexOfSelectedItem!=int(e.values[Bars]))[_bars selectItemAtIndex:int(e.values[Bars])];

@@ -9,6 +9,7 @@ bool supported(AVAudioFormat* f){
 }
 }
 @implementation CosmosAUUnit {
+    CXLibrary *_library;dispatch_source_t _programTimer;
     std::unique_ptr<Engine> _core;
     AUAudioUnitBusArray *_inputs,*_outputs;
     AUAudioUnitBus *_in,*_out;
@@ -46,14 +47,34 @@ bool supported(AVAudioFormat* f){
     Engine* core=_core.get();
     _tree.implementorValueProvider=^AUValue(AUParameter* p){return core->values[p.address].load();};
     _tree.implementorValueObserver=^(AUParameter* p,AUValue value){core->set(unsigned(p.address),value);};
+    _library=[[CXLibrary alloc]initWithURL:cosmos_preset_bank::defaultURL()];
+    __weak CosmosAUUnit *weak=self;
+    _library.capture=^{return [weak soundState];};
+    _library.applySound=^BOOL(const cosmos_presets::State& saved,NSString *name){
+        CosmosAUUnit *u=weak;if(!u)return NO;
+        auto s=saved;if(s.midi){s.midi->channel=u.engine->channel;s.midi->programChange=u.engine->pc;}
+        u.engine->releasePending=true;[u restoreSound:s];return YES;
+    };
+    _library.legacyOccupied=^BOOL(NSInteger n){CosmosAUUnit*u=weak;Engine::Patch p;return u&&n>=0&&n<32&&u.engine->readSlot(unsigned(n),p);};
+    _library.legacyRecall=^BOOL(NSInteger n){CosmosAUUnit*u=weak;if(!u||!u.library.legacyOccupied(n))return NO;
+        int channel=u.engine->channel;u.engine->recall(unsigned(n));u.engine->channel=channel;return YES;};
+    _library.channel=^NSInteger{CosmosAUUnit*u=weak;return u?int(u.engine->channel):-1;};
+    _library.setChannelValue=^(NSInteger ch){CosmosAUUnit*u=weak;if(u)u.engine->channel=int(ch);};
+    [_library load:0];
+    _programTimer=dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0,0,dispatch_get_main_queue());
+    dispatch_source_set_timer(_programTimer,dispatch_time(DISPATCH_TIME_NOW,30000000),30000000,5000000);
+    dispatch_source_set_event_handler(_programTimer,^{CosmosAUUnit*u=weak;if(!u)return;int pc=u.engine->pendingPC.exchange(-1);if(pc>=0)[u.library load:pc];});
+    dispatch_resume(_programTimer);
     return self;
 }
+- (void)dealloc{if(_programTimer)dispatch_source_cancel(_programTimer);}
+- (CXLibrary*)library{return _library;}
 - (cosmos_au::Engine*)engine{return _core.get();}
 - (AUParameterTree*)parameterTree{return _tree;}
 - (AUAudioUnitBusArray*)inputBusses{return _inputs;}
 - (AUAudioUnitBusArray*)outputBusses{return _outputs;}
 - (NSArray*)channelCapabilities{return @[@1,@2,@2,@2,@1,@4,@2,@4];}
-- (NSInteger)virtualMIDICableCount{return 0;}
+- (NSInteger)virtualMIDICableCount{return 1;}
 - (BOOL)canProcessInPlace{return NO;}
 - (BOOL)shouldBypassEffect{return _core->bypass;}
 - (void)setShouldBypassEffect:(BOOL)b{_core->bypass=b;}
@@ -166,7 +187,7 @@ static bool decodeSlot(id doc,Engine::Patch& out){
     NSMutableArray* slots=[NSMutableArray new];@synchronized(self){
         for(unsigned i=0;i<32;++i){Engine::Patch p;[slots addObject:_core->readSlot(i,p)?slotDocument(p):@{}];}
     }
-    d[@"COSMOSPanel"]=slotDocument(_core->capture());d[@"COSMOSGroups"]=slots;d[@"COSMOSGroupIndex"]=@(_core->selectedSlot.load());return d;
+    if(_library.baseline)d[@"CosmosLibraryReference"]=_library.baseline;d[@"CosmosLibrarySlot"]=@(_library.active);d[@"CosmosLibraryName"]=_library.name?:@"";d[@"COSMOSPanel"]=slotDocument(_core->capture());d[@"COSMOSGroups"]=slots;d[@"COSMOSGroupIndex"]=@(_core->selectedSlot.load());return d;
 }
 - (void)setFullState:(NSDictionary*)state{
     if(!state)return;if(!state[@"COSMOS"]){[super setFullState:state];return;}
@@ -179,7 +200,11 @@ static bool decodeSlot(id doc,Engine::Patch& out){
     }
     @synchronized(self){if(groups)for(unsigned i=0;i<32;++i)_core->writeSlot(i,decoded[i]?&*decoded[i]:nullptr);}
     id index=state[@"COSMOSGroupIndex"];if([index isKindOfClass:NSNumber.class]){_core->selectedSlot=std::clamp([index intValue],0,31);_core->values[PresetSlot]=float(_core->selectedSlot.load()+1);}
-    _core->releasePending=true;[self restoreSound:sound];
+    _core->pendingPC=-1;_core->releasePending=true;[self restoreSound:sound];
     if(state[@"COSMOSPanel"])for(unsigned i=0;i<Count;++i)if(isSoundValue(i))_core->set(i,panel.parameters[i]);
+    NSNumber *slot=state[@"CosmosLibrarySlot"];NSString *name=state[@"CosmosLibraryName"];
+    [_library track:[slot isKindOfClass:NSNumber.class]?std::clamp(slot.intValue,-1,127):-1 name:[name isKindOfClass:NSString.class]?name:@""];
+    cosmos_presets::State reference;
+    if(cosmos_presets::decode(state[@"CosmosLibraryReference"],reference))_library.baseline=cosmos_presets::encode(reference);
 }
 @end

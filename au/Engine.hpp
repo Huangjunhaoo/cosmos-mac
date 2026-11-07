@@ -48,8 +48,13 @@ public:
     std::array<std::atomic<float>,Count> values;
     // Inactive legacy metadata is kept so old AU sets and standalone preset files round-trip.
     std::array<std::atomic<uint32_t>,cosmos_midi::TargetCount> maps;
+    std::atomic<int> pendingPC{-1};
+    void programMessage(unsigned status,unsigned program){
+        int filter=channel.load();
+        if((status&0xf0)==0xc0 && program<128 && (filter<0 || unsigned(filter)==(status&15)))pendingPC=int(program);
+    }
     std::atomic<int> channel{-1};
-    std::atomic<bool> pc{false},bypass{false};
+    std::atomic<bool> pc{true},bypass{false};
     std::atomic<unsigned> syncState{0}; // 0 free, 1 waiting for Live, 2 armed, 3 recording, 4 unavailable
     struct Patch {
         std::array<float,Count> parameters{};
@@ -106,7 +111,11 @@ public:
             return;
         }
         if(a==PresetSlot){
-            if(old!=value)recall(unsigned(value)-1);
+            if(old!=value){
+                unsigned slot=unsigned(value)-1;
+                if(slots[slot].serial.load())recall(slot); // Preserve embedded programs in older projects.
+                else pendingPC=int(slot);
+            }
             return;
         }
         if(old!=value)dirty.fetch_or(uint64_t(1)<<a,std::memory_order_release);

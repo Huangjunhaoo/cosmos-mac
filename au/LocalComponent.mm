@@ -86,6 +86,11 @@ struct LocalAU {
     std::recursive_mutex listenerLock;
     std::list<Listener> listeners;
 };
+OSStatus programEvent(void *ptr,UInt32 status,UInt32 data1,UInt32,UInt32){
+    auto& au=*static_cast<LocalAU*>(ptr);
+    if(au.engine)au.engine->programMessage(status,data1);
+    return noErr;
+}
 OSStatus openUnit(void* ptr,AudioComponentInstance outer){
     auto& au=*static_cast<LocalAU*>(ptr);
     @try{
@@ -250,7 +255,7 @@ AudioComponentMethod lookup(SInt16 selector){
         METHOD(kAudioUnitGetParameterSelect,getParameter);METHOD(kAudioUnitSetParameterSelect,setParameter);
         METHOD(kAudioUnitScheduleParametersSelect,scheduleParameters);METHOD(kAudioUnitRenderSelect,render);FORWARD(kAudioUnitResetSelect,AudioUnitReset);
         FORWARD(kAudioUnitAddRenderNotifySelect,AudioUnitAddRenderNotify);FORWARD(kAudioUnitRemoveRenderNotifySelect,AudioUnitRemoveRenderNotify);
-        FORWARD(kMusicDeviceMIDIEventSelect,MusicDeviceMIDIEvent);FORWARD(kMusicDeviceSysExSelect,MusicDeviceSysEx);
+        METHOD(kMusicDeviceMIDIEventSelect,programEvent);FORWARD(kMusicDeviceSysExSelect,MusicDeviceSysEx);
         default:return nullptr;
     }
 #undef FORWARD
