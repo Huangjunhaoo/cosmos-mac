@@ -52,7 +52,7 @@
         auto button=[&](NSString* title,CGFloat x,CGFloat y,CGFloat w,SEL action){NSButton* b=[NSButton buttonWithTitle:title target:self action:action];b.font=Font(11);Place(b,root,NSMakeRect(x,y,w,28));return b;};
         label(@"输入",482);_midiSource=popup(124,478,492,@selector(midiSourceChanged:));_midiSource.accessibilityLabel=@"MIDI 输入";
         label(@"通道",442);_midiChannel=popup(124,438,150,@selector(midiChannelChanged:));[_midiChannel addItemWithTitle:@"全部通道"];for(unsigned i=1;i<=16;++i)[_midiChannel addItemWithTitle:[NSString stringWithFormat:CL(@"通道 %u"),i]];[_midiChannel selectItemAtIndex:_midiSettings.router.channel+1];
-        _midiPC=[NSButton checkboxWithTitle:@"Program Change 切换 32 组预设" target:self action:@selector(midiPCChanged:)];_midiPC.font=Font(11);_midiPC.state=_midiSettings.programChange;Place(_midiPC,root,NSMakeRect(294,438,322,26));
+        _midiPC=[NSButton checkboxWithTitle:@"Program Change 切换 128 组预设" target:self action:@selector(midiPCChanged:)];_midiPC.font=Font(11);_midiPC.state=_midiSettings.programChange;Place(_midiPC,root,NSMakeRect(294,438,322,26));
         label(@"学习控制",395);_midiTarget=popup(124,391,290,@selector(midiTargetChanged:));[self rebuildMIDITargets];
         _midiLearn=button(@"学习",426,390,86,@selector(midiLearn:));button(@"移除",522,390,94,@selector(midiClear:));
         label(@"踏板动作",358);_midiPedalMode=popup(124,354,190,@selector(midiPedalModeChanged:));[_midiPedalMode addItemsWithTitles:@[@"点按（短按一次）",@"按住（跟随按下／松开）"]];
@@ -61,7 +61,7 @@
         _midiAssignments=[[NSTextView alloc]initWithFrame:NSMakeRect(0,0,588,140)];_midiAssignments.editable=NO;_midiAssignments.font=Font(11);_midiAssignments.backgroundColor=Paper();_midiAssignments.textColor=Ink();_midiAssignments.autoresizingMask=NSViewWidthSizable;scroll.documentView=_midiAssignments;Place(scroll,root,NSMakeRect(24,202,592,142));
         _midiSync=[NSButton checkboxWithTitle:@"跟随 MIDI Clock（R / PR 第 1–9 档）" target:self action:@selector(midiSyncChanged:)];_midiSync.font=Font(11);_midiSync.state=_midiSettings.sync;Place(_midiSync,root,NSMakeRect(24,157,356,28));
         _midiBars=popup(429,157,187,@selector(midiSyncChanged:));[_midiBars addItemsWithTitles:@[@"录 1 小节",@"录 2 小节",@"录 4 小节"]];[_midiBars selectItemAtIndex:_midiSettings.bars==4?2:_midiSettings.bars==2?1:0];
-        NSTextField* hint=Label(@"4/4 拍。按 RECORD 等下一小节开始，再按可取消等待或提前收尾。\n新循环请先清除旧录音；旧循环不随 BPM 拉伸。PR 录音时请保持 SPEED 不动。\nPC 0–31 对应预设 01–32；空白组保留当前声音。",10,Muted());hint.maximumNumberOfLines=3;Place(hint,root,NSMakeRect(24,88,592,60));
+        NSTextField* hint=Label(@"4/4 拍。按 RECORD 等下一小节开始，再按可取消等待或提前收尾。\n新循环请先清除旧录音；旧循环不随 BPM 拉伸。PR 录音时请保持 SPEED 不动。\nPC 0–127 对应同号预设；空白组保留当前声音。",10,Muted());hint.maximumNumberOfLines=3;Place(hint,root,NSMakeRect(24,88,592,60));
         _midiStatusLabel=Label(@"",11,Teal());_midiStatusLabel.maximumNumberOfLines=2;Place(_midiStatusLabel,root,NSMakeRect(24,24,592,55));
         LocalizedView(root,YES);[self reloadMIDISources];[self midiTargetChanged:nil];[_midiWindow center];
     }
@@ -193,8 +193,8 @@
     }else if(i<28){if(i==27&&_selectedBank!=3)return;ProgramDial* dial=i==27?_rearPanel.program:_program;const NSInteger position=MIN(11,NSInteger(std::round(a.value*127)*12/128));if(position!=dial.selected){dial.selected=position;if(dial.changed)dial.changed(position);}}
 }
 - (void)midiProgram:(unsigned)slot{
-    if(!_midiSettings.programChange||_busy||_closing||_window.attachedSheet||slot>=32)return;
-    NSMenuItem* item=[[NSMenuItem alloc]initWithTitle:@"" action:nil keyEquivalent:@""];item.tag=slot;[self slotChanged:item];
+    if(!_midiSettings.programChange||_busy||_closing||_window.attachedSheet||slot>=128)return;
+    [_library load:slot];
 }
 - (void)receiveMIDI:(cosmos_midi::Message)message{
     if(!_midiSettings.enabled||_busy||_closing)return;

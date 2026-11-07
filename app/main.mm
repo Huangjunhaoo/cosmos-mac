@@ -5,7 +5,7 @@
 #include "preset_store.hpp"
 #include "midi_input.hpp"
 #include "midi_settings.hpp"
-#include "preset_bank.hpp"
+#include "program_library.hpp"
 #include "parameter_mapping.hpp"
 #include "parameter_hover.hpp"
 #include "../native/program_mode.hpp"
@@ -180,7 +180,7 @@ using cosmos_desktop::DesktopAudio;
 @interface CosmosDelegate : NSObject<NSApplicationDelegate,NSWindowDelegate,NSMenuDelegate,NSMenuItemValidation>
 @end
 @implementation CosmosDelegate {
-    NSWindow *_window;
+    NSWindow *_window;PaperView *_mainPanel;
     std::unique_ptr<cosmos_midi::Input> _midiInput;cosmos_midi::Settings _midiSettings;
     NSWindow *_midiWindow;NSTimer *_midiTimer;NSString *_midiNotice;
     NSPopUpButton *_midiSource,*_midiChannel,*_midiTarget,*_midiPedalMode,*_midiBars;
@@ -199,11 +199,8 @@ using cosmos_desktop::DesktopAudio;
     NSArray<ModeLabel*> *_modeMenus;
     NSArray<ParameterDial*> *_parameters;
     NSString *_presetFileName;
-    NSMenu *_presetsMenu,*_slotMenu;
-    NSMenuItem *_saveSlotItem,*_loadSlotItem;
-    BOOL _presetBankReadable;
-    NSUInteger _selectedSlot;
-    cosmos_preset_bank::Bank _presetBank;
+    CXLibrary *_library; CXDrawer *_drawer; NSButton *_presetsButton;
+    NSMenu *_presetsMenu;
     NSTextField *_programName,*_programDescription,*_programReference;
     NSString *_helpContext;
     NSString *_qHelpContext;
@@ -241,7 +238,8 @@ using cosmos_desktop::DesktopAudio;
     _audio->setIndependentPanels(true);
     _window=[[NSWindow alloc]initWithContentRect:NSMakeRect(0,0,1280,640) styleMask:NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable backing:NSBackingStoreBuffered defer:NO];
     _window.title=@"COSMOS";_window.titleVisibility=NSWindowTitleHidden;_window.titlebarAppearsTransparent=YES;_window.backgroundColor=Paper();_window.delegate=self;_window.releasedWhenClosed=NO;
-    PaperView *root=[[PaperView alloc]initWithFrame:_window.contentView.bounds];_window.contentView=root;
+    PaperView *container=[[PaperView alloc]initWithFrame:_window.contentView.bounds];_window.contentView=container;
+    PaperView *root=[[PaperView alloc]initWithFrame:container.bounds];_mainPanel=root;[container addSubview:root];
     CosmosWordmark *wordmark=[[CosmosWordmark alloc]initWithFrame:NSZeroRect];
     NSTextField *subtitle=Label(@"DRIFTING MEMORY STATION",9,Muted());
     NSStackView *brand=Stack(@[wordmark,subtitle],NSUserInterfaceLayoutOrientationVertical,3);brand.alignment=NSLayoutAttributeLeading;
@@ -252,7 +250,8 @@ using cosmos_desktop::DesktopAudio;
     for(unsigned i=0;i<3;++i){ModeLabel *pill=_modeMenus[i];pill.clicked=^(ModeLabel *view){[weak openStatusMenu:unsigned(view.group) from:view];};}
     NSView *spacer=[NSView new];[spacer setContentHuggingPriority:1 forOrientation:NSLayoutConstraintOrientationHorizontal];
     _languagePicker=LanguagePicker(self,@selector(chooseLanguage:));Fix(_languagePicker,132,26);
-    NSStackView *header=Stack(@[brand,_bankSwitch,spacer,_languagePicker],NSUserInterfaceLayoutOrientationHorizontal,18);Fix(header,0,62);header.edgeInsets=NSEdgeInsetsMake(0,22,0,22);
+    _presetsButton=[NSButton buttonWithTitle:@"预设" target:self action:@selector(togglePresets:)];
+    NSStackView *header=Stack(@[brand,_bankSwitch,spacer,_presetsButton,_languagePicker],NSUserInterfaceLayoutOrientationHorizontal,18);Fix(header,0,62);header.edgeInsets=NSEdgeInsetsMake(0,22,0,22);
     _presetFileName=@"COSMOS预设";
     NSView *board=[[NSView alloc]initWithFrame:NSZeroRect];Fix(board,1240,442);
     NSView *panel=[[NSView alloc]initWithFrame:NSZeroRect];Place(panel,board,NSMakeRect(122,0,996,442));
@@ -319,11 +318,7 @@ using cosmos_desktop::DesktopAudio;
     [NSLayoutConstraint activateConstraints:@[[all.topAnchor constraintEqualToAnchor:root.topAnchor constant:20],[all.leadingAnchor constraintEqualToAnchor:root.leadingAnchor constant:20],[all.trailingAnchor constraintEqualToAnchor:root.trailingAnchor constant:-20],[header.widthAnchor constraintEqualToAnchor:all.widthAnchor]]];
     NSMenuItem *presetItem=[[NSMenuItem alloc]initWithTitle:@"预设" action:nil keyEquivalent:@""];
     _presetsMenu=[[NSMenu alloc]initWithTitle:@"预设"];_presetsMenu.delegate=self;presetItem.submenu=_presetsMenu;
-    NSMenuItem *groups=[_presetsMenu addItemWithTitle:@"选择预设组" action:nil keyEquivalent:@""];
-    _slotMenu=[[NSMenu alloc]initWithTitle:@"选择预设组"];groups.submenu=_slotMenu;
-    _saveSlotItem=[_presetsMenu addItemWithTitle:@"保存到第 01 组…" action:@selector(saveLocalPreset:) keyEquivalent:@"s"];_saveSlotItem.target=self;
-    _loadSlotItem=[_presetsMenu addItemWithTitle:@"重新加载第 01 组" action:@selector(loadSelectedSlot:) keyEquivalent:@"o"];_loadSlotItem.target=self;
-    [_presetsMenu addItem:NSMenuItem.separatorItem];
+    [_presetsMenu addItemWithTitle:@"预设" action:@selector(togglePresets:) keyEquivalent:@""].target=self;
     NSMenuItem *importItem=[_presetsMenu addItemWithTitle:@"加载预设文件…" action:@selector(loadPreset:) keyEquivalent:@"o"];importItem.target=self;importItem.keyEquivalentModifierMask=NSEventModifierFlagCommand|NSEventModifierFlagShift;
     NSMenuItem *exportItem=[_presetsMenu addItemWithTitle:@"另存为预设文件…" action:@selector(savePreset:) keyEquivalent:@"s"];exportItem.target=self;exportItem.keyEquivalentModifierMask=NSEventModifierFlagCommand|NSEventModifierFlagShift;
     [_presetsMenu addItem:NSMenuItem.separatorItem];
@@ -335,7 +330,19 @@ using cosmos_desktop::DesktopAudio;
     LocalizedView(root,YES);LocalizedMenu(NSApp.mainMenu,YES);[self fitFirmwareMenu];
     [_inputGain setTitle:CL(@"IN · 输入")];[_outputGain setTitle:CL(@"OUT · 输出")];[_rearPanel.gain setTitle:CL(@"后景声 · 输出")];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(languageChanged:) name:cosmos_language::changeNotice() object:nil];
-    [self reloadDevices];[self reloadPresetBank];[self installKeyboard];[self initializeMIDI];[self refresh:nil];
+    [self reloadDevices];[self installKeyboard];[self initializeMIDI];[self refresh:nil];
+    _library=[[CXLibrary alloc]initWithURL:cosmos_preset_bank::defaultURL()];
+    _library.capture=^{return [weak currentPreset];};
+    _library.applySound=^BOOL(const cosmos_presets::State& saved,NSString* name){
+        CosmosDelegate *d=weak;if(!d||![d canUsePreset])return NO;
+        auto s=saved;if(s.midi){s.midi->channel=d->_midiSettings.router.channel;s.midi->programChange=d->_midiSettings.programChange;}
+        return [d applyPreset:s name:name];
+    };
+    _library.channel=^NSInteger{CosmosDelegate *d=weak;return d?d->_midiSettings.router.channel:-1;};
+    _library.setChannelValue=^(NSInteger ch){CosmosDelegate *d=weak;if(d){[d releaseMIDI];d->_midiSettings.router.channel=int(ch);[d->_midiChannel selectItemAtIndex:ch+1];[d saveMIDISettings];[d updateMIDIDisplay];}};
+    _drawer=[[CXDrawer alloc]initWithParent:container library:_library];
+    _drawer.visibilityChanged=^(BOOL open){CosmosDelegate*d=weak;if(d)[d fitPresetPanel];};_drawer.fileMenu=^(NSButton*b){CosmosDelegate*d=weak;if(!d)return;[d->_presetsMenu popUpMenuPositioningItem:nil atLocation:NSMakePoint(0,0) inView:b];};
+    [_library load:0];
     _timer=[NSTimer timerWithTimeInterval:.1 target:self selector:@selector(refresh:) userInfo:nil repeats:YES];[[NSRunLoop mainRunLoop]addTimer:_timer forMode:NSRunLoopCommonModes];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(appDidResign:) name:NSApplicationDidResignActiveNotification object:nil];
     [_window center];[_window makeKeyAndOrderFront:nil];[NSApp activateIgnoringOtherApps:YES];
@@ -357,7 +364,7 @@ using cosmos_desktop::DesktopAudio;
     BOOL quad=_selectedBank==3;[_outputGain setTitle:quad?CL(@"前景声 · 输出"):CL(@"OUT · 输出")];
     _outputLabel.stringValue=quad?(_mergedOutput?CL(@"合并"):CL(@"前景")):CL(@"输出");
     if(_midiWindow){auto learning=_midiSettings.router.learning;_midiTarget.menu.title=@"";[self updateMIDIDisplay];_midiSettings.router.learning=learning;[self updateMIDIDisplay];}
-    [self updatePresetMenuSelection];[self refresh:nil];
+    [self refresh:nil];
 }
 #include "midi_ui.inc"
 - (void)markPresetChanged{}
@@ -374,8 +381,8 @@ using cosmos_desktop::DesktopAudio;
     state.modes={{unsigned(stats.record_mode),0,unsigned(stats.hpf_mode),unsigned(stats.lpf_mode)}};
     state.enabled={{stats.record,stats.reverse,stats.hpf,stats.lpf}};if(_pendingPreset){state.modes=_pendingPreset->modes;state.enabled=_pendingPreset->enabled;state.q.modes=_pendingPreset->q.modes;state.q.enabled=_pendingPreset->q.enabled;}return state;
 }
-- (void)applyPreset:(const cosmos_presets::State&)state name:(NSString*)name{
-    if(_audio->stats().running&&(((state.firmwareBank()==3)!=(_selectedBank==3))||(state.firmwareBank()==3&&state.mqMerged!=bool(_mergedOutput)))){_error.stringValue=CL(@"请先停止音频，再改变双引擎或输出方式。");return;}
+- (BOOL)applyPreset:(const cosmos_presets::State&)state name:(NSString*)name{
+    if(_audio->stats().running&&(((state.firmwareBank()==3)!=(_selectedBank==3))||(state.firmwareBank()==3&&state.mqMerged!=bool(_mergedOutput)))){_error.stringValue=CL(@"请先停止音频，再改变双引擎或输出方式。");return NO;}
     [self releaseMIDI];[self releaseAll];_applyingPreset=YES;
     const bool topologyChanged=(_selectedBank==3)!=(state.firmwareBank()==3);
     _selectedBank=state.firmwareBank();_bankSwitch.selectedSegment=_selectedBank;_program.firmwareBank=_selectedBank==3?0:_selectedBank;_program.selected=state.program-1;
@@ -393,80 +400,21 @@ using cosmos_desktop::DesktopAudio;
     // Otherwise the old bank can consume a command immediately before reset.
     _audio->setProgram(cosmos_native::program_index(state.firmwareBank(),unsigned(state.program-1)));_pendingPreset=state;
     if(topologyChanged)[self updateMQLayout];[self rebuildOutputs];
-    _presetFileName=name;_applyingPreset=NO;_error.stringValue=@"";[self refresh:nil];
+    _presetFileName=name;_applyingPreset=NO;_error.stringValue=@"";[self refresh:nil];return YES;
 }
 - (BOOL)canUsePreset{
     if(_closing||!_audio)return NO;
     if(_busy){_error.stringValue=CL(@"请等待音频启动或停止完成后再操作预设。");return NO;}
     [_window makeFirstResponder:nil];return YES;
 }
-- (NSURL*)presetBankURL{return cosmos_preset_bank::defaultURL();}
-- (void)updatePresetMenuSelection{
-    for(NSMenuItem *item in _slotMenu.itemArray)item.state=item.tag==NSInteger(_selectedSlot)?NSControlStateValueOn:NSControlStateValueOff;
-    _saveSlotItem.title=[NSString stringWithFormat:CL(@"保存到第 %02lu 组…"),(unsigned long)_selectedSlot+1];
-    _loadSlotItem.title=[NSString stringWithFormat:CL(@"重新加载第 %02lu 组"),(unsigned long)_selectedSlot+1];
+- (void)fitPresetPanel{
+    NSSize size=_window.contentView.bounds.size;
+    CGFloat scale=(_drawer&&!_drawer.hidden)?(size.width-254.)/1280.:size.width/1280.;
+    _mainPanel.frame=NSMakeRect(0,(size.height-size.height*scale)/2.,1280.*scale,size.height*scale);
+    _mainPanel.bounds=NSMakeRect(0,0,1280,size.height);
 }
-- (void)menuWillOpen:(NSMenu*)menu{
-    if(menu==_presetsMenu&&!_closing)[self reloadPresetBank];
-}
-- (BOOL)validateMenuItem:(NSMenuItem*)item{
-    if(_closing||_busy||!_audio||_window.attachedSheet)return NO;
-    if(item.action==@selector(slotChanged:)||item.action==@selector(saveLocalPreset:))return _presetBankReadable;
-    if(item.action==@selector(loadSelectedSlot:))return _presetBankReadable&&_presetBank.slots[_selectedSlot].state.has_value();
-    return YES;
-}
-- (BOOL)reloadPresetBank{
-    NSError *error=nil;
-    _presetBankReadable=cosmos_preset_bank::loadBank([self presetBankURL],_presetBank,&error);
-    if(!_presetBankReadable){
-        [_slotMenu removeAllItems];
-        NSMenuItem *unavailable=[_slotMenu addItemWithTitle:CL(@"预设库暂不可用") action:nil keyEquivalent:@""];unavailable.enabled=NO;
-        _error.stringValue=error.localizedDescription?:CL(@"无法读取软件预设库。");return NO;
-    }
-    [_slotMenu removeAllItems];
-    for(NSUInteger i=0;i<cosmos_preset_bank::slotCount;++i){const auto &slot=_presetBank.slots[i];
-        NSMenuItem *item=[_slotMenu addItemWithTitle:[NSString stringWithFormat:@"%02lu · %@",(unsigned long)i+1,slot.state?slot.name:CL(@"空白")] action:@selector(slotChanged:) keyEquivalent:@""];
-        item.target=self;item.tag=NSInteger(i);item.toolTip=slot.state?CL(@"加载这一组音色"):CL(@"选为保存位置，保留当前声音");
-    }
-    [self updatePresetMenuSelection];return YES;
-}
-- (void)slotChanged:(NSMenuItem*)sender{
-    const NSInteger index=sender.tag;
-    if(index<0||index>=NSInteger(cosmos_preset_bank::slotCount))return;
-    if(![self canUsePreset]||![self reloadPresetBank])return;
-    _selectedSlot=NSUInteger(index);[self updatePresetMenuSelection];
-    // Choosing an empty destination never changes the sound currently playing.
-    if(!_presetBank.slots[_selectedSlot].state){_error.stringValue=@"";return;}
-    cosmos_presets::State state;NSString *name=nil;NSError *error=nil;
-    if(!cosmos_preset_bank::loadSlot(_presetBank,_selectedSlot,state,&name,&error)){_error.stringValue=error.localizedDescription;return;}
-    [self applyPreset:state name:name];
-}
-- (void)loadSelectedSlot:(id)sender{
-    if(![self canUsePreset]||![self reloadPresetBank])return;
-    cosmos_presets::State state;NSString *name=nil;NSError *error=nil;
-    if(!cosmos_preset_bank::loadSlot(_presetBank,_selectedSlot,state,&name,&error)){_error.stringValue=error.localizedDescription;return;}
-    [self applyPreset:state name:name];
-}
-- (void)saveLocalPreset:(id)sender{
-    if(![self canUsePreset]||![self reloadPresetBank])return;
-    const NSUInteger index=_selectedSlot;
-    NSAlert *sheet=[NSAlert new];sheet.messageText=[NSString stringWithFormat:CL(@"保存到第 %02lu 组"),(unsigned long)index+1];sheet.informativeText=CL(@"保存在这台电脑的软件预设库中。");
-    [sheet addButtonWithTitle:CL(@"保存")];[sheet addButtonWithTitle:CL(@"取消")];
-    NSTextField *name=[[NSTextField alloc]initWithFrame:NSMakeRect(0,0,280,26)];name.font=Font(13);name.placeholderString=CL(@"音色名称");name.accessibilityLabel=CL(@"预设名称，1到40个字符");
-    const auto &slot=_presetBank.slots[index];
-    name.stringValue=slot.state?slot.name:(_selectedBank==3?[NSString stringWithFormat:CL(@"前景声 %ld · 后景声 %ld"),(long)_program.selected+1,(long)_rearPanel.program.selected+1]:[NSString stringWithFormat:@"%@%ld · %@",BankCode(_program.firmwareBank),(long)_program.selected+1,ProgramInfo(_program.firmwareBank,_program.selected)[@"short_name"]]);
-    sheet.accessoryView=name;
-    [sheet beginSheetModalForWindow:_window completionHandler:^(NSModalResponse response){
-        if(response!=NSAlertFirstButtonReturn||![self canUsePreset])return;
-        NSError *error=nil;const auto state=[self currentPreset];
-        if(!cosmos_preset_bank::saveSlot([self presetBankURL],index,name.stringValue,state,&error)){
-            self->_error.stringValue=error.localizedDescription?:CL(@"无法保存这个预设。");return;
-        }
-        self->_selectedSlot=index;if(![self reloadPresetBank])return;
-        self->_presetFileName=self->_presetBank.slots[index].name;self->_error.stringValue=@"";
-    }];
-    [sheet.window makeFirstResponder:name];[name selectText:nil];
-}
+- (void)togglePresets:(id)sender{if(!_busy&&!_closing)[_drawer toggle];}
+- (BOOL)validateMenuItem:(NSMenuItem*)item{return !_closing&&!_busy&&_audio&&!_window.attachedSheet;}
 - (void)savePreset:(id)sender{
     if(![self canUsePreset])return;
     NSSavePanel *panel=[NSSavePanel savePanel];panel.title=CL(@"另存为 COSMOS 预设文件");panel.allowedContentTypes=@[[UTType typeWithFilenameExtension:@"cosmospreset" conformingToType:UTTypeJSON]?:UTTypeJSON];panel.canCreateDirectories=YES;
@@ -486,11 +434,11 @@ using cosmos_desktop::DesktopAudio;
         if(response!=NSModalResponseOK||!panel.URL||![self canUsePreset])return;
         cosmos_presets::State state;NSError *error=nil;
         if(!cosmos_presets::load(panel.URL,state,&error)){self->_error.stringValue=error.localizedDescription?:CL(@"无法读取这个预设。");return;}
-        [self applyPreset:state name:panel.URL.lastPathComponent.stringByDeletingPathExtension];
+        NSString *name=panel.URL.lastPathComponent.stringByDeletingPathExtension;if([self applyPreset:state name:name])[self->_library track:-1 name:name];
     }];
 }
 - (void)resetPreset:(id)sender{
-    if(![self canUsePreset])return;const cosmos_presets::State state;[self applyPreset:state name:CL(@"默认起点")];
+    if(![self canUsePreset])return;const cosmos_presets::State state;if([self applyPreset:state name:CL(@"默认起点")])[_library track:-1 name:CL(@"默认起点")];
 }
 - (void)bankChanged:(FirmwareMenu*)sender{
     if(_closing||!_audio)return;
@@ -518,7 +466,7 @@ using cosmos_desktop::DesktopAudio;
     _scrollHeight.constant=mq?height-248:442;_footerHeight.constant=mq?126:76;
     _audioSetup.frame=NSMakeRect(22,mq?50:0,1196,76);
     _panelStack.frame=NSMakeRect(0,0,1240,mq?980:442);
-    [_window setContentSize:NSMakeSize(1280,height)];[_window.contentView layoutSubtreeIfNeeded];
+    [_window setContentSize:NSMakeSize(1280,height)];[self fitPresetPanel];[_window.contentView layoutSubtreeIfNeeded];
     const CGFloat y=_panelStack.isFlipped?0:MAX(0,_panelStack.frame.size.height-_panelScroll.contentSize.height);
     [_panelScroll.contentView scrollToPoint:NSMakePoint(0,y)];[_panelScroll reflectScrolledClipView:_panelScroll.contentView];
     [_window center];
@@ -721,6 +669,7 @@ using cosmos_desktop::DesktopAudio;
 - (void)refresh:(NSTimer*)timer{
     cosmos_language::syncPreference();
     if(_busy||_closing||!_audio)return; // Lifecycle writes non-atomic host metadata.
+    [_drawer tick];_presetsButton.title=_library.name.length?[_library.name stringByAppendingString:@" ▸"]:CL(@"预设");
     NSString* driveTitle=_selectedBank>=4?@"SPEED":@"DRIVE";if(![_parameters[2].title isEqual:driveTitle]){_parameters[2].title=driveTitle;_parameters[2].needsDisplay=YES;}
     NSDictionary *info=ProgramInfo(_program.firmwareBank,_program.selected);
     NSString *helpContext=[NSString stringWithFormat:@"%@%ld",BankCode(_program.firmwareBank),(long)_program.selected+1];

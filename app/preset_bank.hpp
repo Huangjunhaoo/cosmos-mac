@@ -11,7 +11,7 @@
 // A local library of panel settings, not a startup preset. Reading a Bank has
 // no audio/DSP effects; a caller must explicitly loadSlot and apply its State.
 namespace cosmos_preset_bank {
-constexpr size_t slotCount = 32;
+constexpr size_t slotCount = 128;
 struct Slot {
     NSString *__strong name = @"";
     std::optional<cosmos_presets::State> state;
@@ -30,7 +30,7 @@ inline bool fail(NSError **error, NSString *message, NSError *underlying = nil) 
 inline NSURL *defaultURL() {
     // This function computes a path only. It does not create Application
     // Support or read/write a user's real preset library.
-    return [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/COSMOS/preset-bank.json"]];
+    return [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/COSMOS/preset-bank-v2.json"]];
 }
 
 inline NSString *normalizedName(NSString *name, NSError **error = nullptr) {
@@ -64,13 +64,13 @@ inline bool decode(NSDictionary *document, Bank &destination, NSError **error = 
         ![document[@"format"] isEqualToString:@"cosmos-preset-bank"])
         return fail(error, CL(@"这个文件不是 COSMOS 预设库。"));
     double version = 0;
-    if (!cosmos_presets::number(document[@"version"], 1, 1, true, CL(@"预设库版本（目前支持 1）"), version, &detail))
-        return fail(error, CL(@"这个预设库的版本无法读取，目前支持版本 1。"), detail);
+    if (!cosmos_presets::number(document[@"version"], 1, 2, true, CL(@"预设库版本（目前支持 1–2）"), version, &detail))
+        return fail(error, CL(@"这个预设库的版本无法读取，目前支持版本 1–2。"), detail);
     id slots = document[@"slots"];
-    if (![slots isKindOfClass:NSArray.class] || [slots count] != slotCount)
-        return fail(error, CL(@"预设库必须包含完整的 32 个槽位。"));
+    if (![slots isKindOfClass:NSArray.class] || [slots count] != (version == 1 ? 32 : slotCount))
+        return fail(error, CL(@"预设库必须包含该版本规定的槽位。"));
     Bank candidate;
-    for (size_t index = 0; index < slotCount; ++index) {
+    for (size_t index = 0; index < [slots count]; ++index) {
         id entry = slots[index];
         if (entry == NSNull.null) continue;
         if (!cosmos_presets::exactKeys(entry, @[@"name", @"preset"], CL(@"槽位"), &detail))
@@ -102,7 +102,7 @@ inline NSData *encodeData(const Bank &bank, NSError **error = nullptr) {
         if (!preset) return nil;
         [slots addObject:@{@"name":name, @"preset":preset}];
     }
-    NSDictionary *document = @{@"format":@"cosmos-preset-bank", @"version":@1, @"slots":slots};
+    NSDictionary *document = @{@"format":@"cosmos-preset-bank", @"version":@2, @"slots":slots};
     NSError *detail = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:document options:NSJSONWritingPrettyPrinted | NSJSONWritingSortedKeys error:&detail];
     if (!data) fail(error, CL(@"无法生成预设库内容。"), detail);
@@ -110,8 +110,8 @@ inline NSData *encodeData(const Bank &bank, NSError **error = nullptr) {
 }
 
 inline bool decodeData(NSData *data, Bank &bank, NSError **error = nullptr) {
-    if (!data.length || data.length > 262144)
-        return fail(error, CL(@"预设库为空或超过 256 KB，无法加载。现有文件会保留。"));
+    if (!data.length || data.length > 4194304)
+        return fail(error, CL(@"预设库为空或超过 4 MB，无法加载。现有文件会保留。"));
     NSString *text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     if (!text) return fail(error, CL(@"预设库必须是 UTF-8 编码的 JSON 文件。"));
     NSError *detail = nil;
@@ -129,6 +129,10 @@ inline bool loadBank(NSURL *url, Bank &bank, NSError **error = nullptr) {
     if (!data) {
         if ([detail.domain isEqualToString:NSCocoaErrorDomain] && detail.code == NSFileReadNoSuchFileError &&
             ![[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:nil]) {
+            if ([url isEqual:defaultURL()]) {
+                NSURL *legacy = [url.URLByDeletingLastPathComponent URLByAppendingPathComponent:@"preset-bank.json"];
+                return loadBank(legacy, bank, error);
+            }
             bank = Bank{}; return true; // First launch is empty; reading creates nothing.
         }
         return fail(error, CL(@"无法读取预设库，请检查文件的读取权限。现有文件会保留。"), detail);
@@ -138,7 +142,7 @@ inline bool loadBank(NSURL *url, Bank &bank, NSError **error = nullptr) {
 
 inline bool loadSlot(const Bank &bank, size_t index, cosmos_presets::State &destination,
                      NSString *__autoreleasing *name = nullptr, NSError **error = nullptr) {
-    if (index >= slotCount) return fail(error, CL(@"请选择 1–32 之间的预设槽位。"));
+    if (index >= slotCount) return fail(error, CL(@"请选择 1–128 之间的预设槽位。"));
     const Slot &slot = bank.slots[index];
     if (!slot.state) return fail(error, CL(@"这个槽位还没有保存预设。"));
     NSString *validatedName = normalizedName(slot.name, error);
@@ -159,9 +163,9 @@ struct FileLock {
 };
 
 inline bool saveSlot(NSURL *url, size_t index, NSString *name, const cosmos_presets::State &state,
-                     NSError **error = nullptr) {
+                     NSError **error = nullptr, bool emptyOnly = false) {
     if (!url.isFileURL) return fail(error, CL(@"预设库必须保存在电脑上的本地文件夹。"));
-    if (index >= slotCount) return fail(error, CL(@"请选择 1–32 之间的预设槽位。"));
+    if (index >= slotCount) return fail(error, CL(@"请选择 1–128 之间的预设槽位。"));
     NSString *trimmed = normalizedName(name, error);
     if (!trimmed || !cosmos_presets::encode(state, error)) return false;
     NSError *detail = nil;
@@ -178,6 +182,7 @@ inline bool saveSlot(NSURL *url, size_t index, NSString *name, const cosmos_pres
     Bank latest;
     if (!loadBank(url, latest, &detail))
         return fail(error, CL(@"现有预设库无法安全读取，已停止保存并保留原文件。"), detail);
+    if (emptyOnly && latest.slots[index].state) return fail(error, CL(@"槽位已被使用。"));
     latest.slots[index].name = trimmed;
     latest.slots[index].state = state;
     NSData *data = encodeData(latest, error);
