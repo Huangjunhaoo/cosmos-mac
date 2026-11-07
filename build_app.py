@@ -9,11 +9,11 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'dist/COSMOS-0.16.2.app');parser.add_argument('--ui-only',action='store_true',help='Compile only the UI object; no audio implementation is required.');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'dist/COSMOS-0.16.3.app');parser.add_argument('--ui-only',action='store_true',help='Compile only the UI object; no audio implementation is required.');args=parser.parse_args()
     compiler=shutil.which('clang++')
     if not compiler:raise SystemExit('A locally installed Clang and macOS SDK are required.')
     if sys.platform!='darwin':raise SystemExit('The standalone Cocoa application builds on macOS.')
-    flags=['-std=c++17','-O2','-fobjc-arc','-fno-fast-math','-ffp-contract=off','-mmacosx-version-min=13.0','-Wall','-Wextra','-Wno-unused-parameter']
+    flags=['-arch','arm64','-arch','x86_64','-std=c++17','-O2','-fobjc-arc','-fno-fast-math','-ffp-contract=off','-mmacosx-version-min=13.0','-Wall','-Wextra','-Wno-unused-parameter']
     build=ROOT/'app/build';build.mkdir(parents=True,exist_ok=True)
     if args.ui_only:
         output=build/'main.o';subprocess.run([compiler,*flags,'-c',str(ROOT/'app/main.mm'),'-o',str(output)],check=True);print(output);return
@@ -33,7 +33,7 @@ def main():
     for code, message in zip(codes,[privacy,*translated]):
         folder=contents/'Resources'/f'{code}.lproj';folder.mkdir(exist_ok=True)
         (folder/'InfoPlist.strings').write_bytes(plistlib.dumps({'NSMicrophoneUsageDescription':message},fmt=plistlib.FMT_BINARY))
-    command=[compiler,*flags,str(ROOT/'app/main.mm'),str(audio),'-framework','Cocoa','-framework','AVFoundation','-framework','UniformTypeIdentifiers','-framework','CoreMIDI','-framework','CoreAudio','-framework','AudioToolbox','-framework','AudioUnit','-o',str(macos/'COSMOS')]
+    command=[compiler,*flags,str(ROOT/'app/main.mm'),str(ROOT/'app/program_library.mm'),str(audio),'-framework','Cocoa','-framework','AVFoundation','-framework','UniformTypeIdentifiers','-framework','CoreMIDI','-framework','CoreAudio','-framework','AudioToolbox','-framework','AudioUnit','-o',str(macos/'COSMOS')]
     subprocess.run(command,check=True)
     subprocess.run(['/usr/bin/codesign','--force','--sign','-',str(bundle)],check=True)
     print(bundle)
