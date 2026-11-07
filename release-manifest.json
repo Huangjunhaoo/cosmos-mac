@@ -3,34 +3,34 @@
   "date": "2026-11-07",
   "products": [
     {
-      "path": "Standalone/COSMOS-0.16.3.app",
-      "version": "0.16.3",
-      "build": "30",
+      "path": "Standalone/COSMOS.app",
+      "version": "0.16.4",
+      "build": "31",
       "minimum_macos": "13.0",
       "architecture": [
         "arm64",
         "x86_64"
       ],
-      "executable_sha256": "8886094307ee187c71fda261f53596f68b5a4abcafaa943b4320d11d14895fb1"
+      "executable_sha256": "b66f2fe9ba5f2d1d2af9726ac51975d1b32ebb1ccf4f0bbc122d569fab0f1d7d"
     },
     {
       "path": "Audio Unit/Cosmos.component",
-      "version": "0.1.12",
-      "build": "14",
+      "version": "0.1.13",
+      "build": "15",
       "minimum_macos": "13.0",
       "architecture": [
         "arm64",
         "x86_64"
       ],
-      "executable_sha256": "2edc6daab3ca8be262621365333f82c38d1d3c3170727f9cc64e415494102960"
+      "executable_sha256": "6cc8ee38c60d1870d026402c6f2b7f0083dd3bde6327a0c6bfc7b88f56ca7c4e"
     }
   ],
   "local_signing": true,
   "apple_notarized": false,
   "share_package": {
-    "filename": "Cosmos-Final-Standalone-0.16.3-AU-0.1.12-Mac.zip",
-    "bytes": 10378735,
-    "sha256": "ad0891f3cdfb19bd1762069485c0c044bfea95911689a2229af0fc87410b38e9"
+    "filename": "COSMOS-Standalone-0.16.4-AU-0.1.13-Mac.zip",
+    "bytes": 10396572,
+    "sha256": "0ee887618f3fea2b843f7c082d13499eacc9cd2c42b45fda29b4712f7543d36d"
   },
   "installation_guide": {
     "filename": "Cosmos Mac/00 - Install Cosmos.pdf",
@@ -57,7 +57,9 @@
   "verified": {
     "strict_signatures_after_unpack": true,
     "standalone_preset_sidebar": true,
-    "au_program_change_with_editor_closed": true,
-    "factory": "Chicken Chukka: Cosmos"
+    "factory": "Chicken Chukka: Cosmos",
+    "au_validation": true,
+    "selected_slot_save_and_load": true,
+    "context_menu_rename_and_delete": true
   }
 }

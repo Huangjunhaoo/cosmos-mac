@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'dist/COSMOS-0.16.3.app');parser.add_argument('--ui-only',action='store_true',help='Compile only the UI object; no audio implementation is required.');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'dist/COSMOS.app');parser.add_argument('--ui-only',action='store_true',help='Compile only the UI object; no audio implementation is required.');args=parser.parse_args()
     compiler=shutil.which('clang++')
     if not compiler:raise SystemExit('A locally installed Clang and macOS SDK are required.')
     if sys.platform!='darwin':raise SystemExit('The standalone Cocoa application builds on macOS.')
