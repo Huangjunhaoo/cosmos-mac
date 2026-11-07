@@ -85,7 +85,7 @@ for item in list {
         let markX:CGFloat=rtl ? 85:509
         dial(markX,147,page)
         text(labels[0],rtl ? 150:40,100,405,53,37,ink,true,rtl)
-        let subtitle = page == 0 ? labels[1]+"  /  0.16.2" : (page==1 ? "Ableton Live":"Logic Pro")+"  /  Cosmos AU 0.1.10"
+        let subtitle = page == 0 ? labels[1]+"  /  0.16.3" : (page==1 ? "Ableton Live":"Logic Pro")+"  /  Cosmos AU 0.1.12"
         text(subtitle,rtl ? 150:40,157,405,30,16,teal,true,rtl)
         fill(40,211,515,45,pale)
         // Keep arrows and product names in signal-flow order, mirrored for Arabic.
