@@ -47,7 +47,7 @@ public:
             bindings[size_t(learning)]={uint8_t(kind),uint8_t(ch),m.data1,learnPulse};
             held_[size_t(learning)]=false;learning=-1;return true;
         }
-        if(kind==0xc0){if(m.data1<32)program(unsigned(m.data1));return false;}
+        if(kind==0xc0){if(m.data1<128)program(unsigned(m.data1));return false;}
         for(unsigned i=0;i<TargetCount;++i){const auto& b=bindings[i];
             if(!b.kind||b.channel!=ch||b.number!=m.data1)continue;
             const bool note=b.kind==0x90&&(kind==0x90||kind==0x80);
