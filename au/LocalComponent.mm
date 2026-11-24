@@ -102,6 +102,17 @@ OSStatus openUnit(void* ptr,AudioComponentInstance outer){
         if(![owner.node.AUAudioUnit isKindOfClass:CosmosAUUnit.class])return kAudioUnitErr_FailedInitialization;
         owner.presetName=@"Default";owner.hostUnit=outer;au.owner=owner;au.inner=owner.node.audioUnit;au.engine=((CosmosAUUnit*)owner.node.AUAudioUnit).engine;
         au.schedule=owner.node.AUAudioUnit.scheduleParameterBlock;
+        LocalAU* current=&au;
+        ((CosmosAUUnit*)owner.node.AUAudioUnit).presetDidChange=^{
+            for(auto id:parameterIDs){
+                AudioUnitEvent event={};event.mEventType=kAudioUnitEvent_ParameterValueChange;
+                event.mArgument.mParameter={current->owner.hostUnit,id,kAudioUnitScope_Global,0};
+                AUEventListenerNotify(nullptr,nullptr,&event);
+            }
+            std::lock_guard guard(current->listenerLock);
+            for(auto& l:current->listeners)if(l.active&&(l.id==kAudioUnitProperty_PresentPreset||l.id==kAudioUnitProperty_CurrentPreset))
+                l.fn(l.context,l.outer,l.id,kAudioUnitScope_Global,0);
+        };
         return noErr;
     }@catch(NSException* e){NSLog(@"COSMOS engine initialization: %@",e.reason);return kAudioUnitErr_FailedInitialization;}
 }
@@ -122,6 +133,7 @@ void propertyChanged(void* ctx,AudioUnit,AudioUnitPropertyID id,AudioUnitScope s
 }
 OSStatus closeUnit(void* ptr){
     auto* au=static_cast<LocalAU*>(ptr);
+    ((CosmosAUUnit*)au->owner.node.AUAudioUnit).presetDidChange=nil;
     for(auto& l:au->listeners)if(l.active)AudioUnitRemovePropertyListenerWithUserData(au->inner,l.id,propertyChanged,&l);
     au->owner.hostUnit=nullptr;au->owner=nil;delete au;return noErr;
 }
@@ -141,17 +153,25 @@ OSStatus removeListener(void* ptr,AudioUnitPropertyID id,AudioUnitPropertyListen
 }
 OSStatus removeAll(void* ptr,AudioUnitPropertyID id,AudioUnitPropertyListenerProc fn){return removeListener(ptr,id,fn,nullptr,true);}
 OSStatus removeOne(void* ptr,AudioUnitPropertyID id,AudioUnitPropertyListenerProc fn,void* ctx){return removeListener(ptr,id,fn,ctx,false);}
+bool presetID(AudioUnitPropertyID id){return id==kAudioUnitProperty_PresentPreset||id==kAudioUnitProperty_CurrentPreset;}
 bool stateID(AudioUnitPropertyID id){return id==kAudioUnitProperty_ClassInfo||id==kAudioUnitProperty_ClassInfoFromDocument;}
-bool localID(AudioUnitPropertyID id){return id==kAudioUnitProperty_AUHostIdentifier||id==kAudioUnitProperty_CocoaUI||id==localViewProperty||id==kAudioUnitProperty_PresentPreset||stateID(id);}
+bool localID(AudioUnitPropertyID id){return id==kAudioUnitProperty_FactoryPresets|| id==kAudioUnitProperty_AUHostIdentifier||id==kAudioUnitProperty_CocoaUI||id==localViewProperty||presetID(id)||stateID(id);}
 bool unsupported(AudioUnitPropertyID id){return id==kAudioUnitProperty_FastDispatch||id==kAudioUnitProperty_RequestViewController;}
 OSStatus propertyInfo(void* ptr,AudioUnitPropertyID id,AudioUnitScope scope,AudioUnitElement elem,UInt32* bytes,Boolean* writable){
     if(unsupported(id))return kAudioUnitErr_InvalidProperty;
     if(!localID(id))return AudioUnitGetPropertyInfo(static_cast<LocalAU*>(ptr)->inner,id,scope,elem,bytes,writable);
     if(scope!=kAudioUnitScope_Global||elem)return kAudioUnitErr_InvalidScope;
     if(id==kAudioUnitProperty_AUHostIdentifier){if(bytes)*bytes=sizeof(AUHostVersionIdentifier);if(writable)*writable=true;return noErr;}
-    if(bytes)*bytes=id==kAudioUnitProperty_CocoaUI?sizeof(AudioUnitCocoaViewInfo):id==kAudioUnitProperty_PresentPreset?sizeof(AUPreset):sizeof(CFTypeRef);
-    if(writable)*writable=stateID(id)||id==kAudioUnitProperty_PresentPreset;
+    if(bytes)*bytes=id==kAudioUnitProperty_CocoaUI?sizeof(AudioUnitCocoaViewInfo):presetID(id)?sizeof(AUPreset):sizeof(CFTypeRef);
+    if(writable)*writable=stateID(id)||presetID(id);
     return noErr;
+}
+const void* retainPreset(CFAllocatorRef,const void* value){
+    const auto& source=*static_cast<const AUPreset*>(value);
+    return new AUPreset{source.presetNumber,static_cast<CFStringRef>(CFRetain(source.presetName))};
+}
+void releasePreset(CFAllocatorRef,const void* value){
+    auto* preset=static_cast<const AUPreset*>(value);CFRelease(preset->presetName);delete preset;
 }
 OSStatus getProperty(void* ptr,AudioUnitPropertyID id,AudioUnitScope scope,AudioUnitElement elem,void* data,UInt32* bytes){
     auto& au=*static_cast<LocalAU*>(ptr);
@@ -161,12 +181,21 @@ OSStatus getProperty(void* ptr,AudioUnitPropertyID id,AudioUnitScope scope,Audio
     UInt32 need=0;auto s=propertyInfo(ptr,id,scope,elem,&need,nullptr);
     if(s)return s;if(!bytes)return kAudio_ParamError;if(!data){*bytes=need;return noErr;}if(*bytes<need)return kAudio_ParamError;
     *bytes=need;
-    if(id==kAudioUnitProperty_CocoaUI){
+    if(id==kAudioUnitProperty_FactoryPresets){
+        const CFArrayCallBacks callbacks={0,retainPreset,releasePreset,nullptr,nullptr};
+        CFMutableArrayRef programs=CFArrayCreateMutable(nullptr,128,&callbacks);
+        for(int i=0;i<128;++i){
+            auto label=CFStringCreateWithFormat(nullptr,nullptr,CFSTR("PC %03d"),i);
+            AUPreset preset={i,label};CFArrayAppendValue(programs,&preset);CFRelease(label);
+        }
+        *static_cast<CFArrayRef*>(data)=programs;
+    }else if(id==kAudioUnitProperty_CocoaUI){
         auto* view=static_cast<AudioUnitCocoaViewInfo*>(data);
         view->mCocoaAUViewBundleLocation=(CFURLRef)CFBridgingRetain([NSBundle bundleForClass:CosmosLocalViewFactory.class].bundleURL);
         view->mCocoaAUViewClass[0]=(CFStringRef)CFBridgingRetain(NSStringFromClass(CosmosLocalViewFactory.class));
-    }else if(id==kAudioUnitProperty_PresentPreset){
-        *static_cast<AUPreset*>(data)={-1,(CFStringRef)CFBridgingRetain(au.owner.presetName)};
+    }else if(presetID(id)){
+        auto library=((CosmosAUUnit*)au.owner.node.AUAudioUnit).library;
+        *static_cast<AUPreset*>(data)={SInt32(library.active),(CFStringRef)CFBridgingRetain(library.name.length?library.name:au.owner.presetName)};
     }else if(id==localViewProperty){*static_cast<CFTypeRef*>(data)=CFBridgingRetain(au.owner);}
     else{
         auto core=au.owner.node.AUAudioUnit;
@@ -186,10 +215,16 @@ OSStatus setProperty(void* ptr,AudioUnitPropertyID id,AudioUnitScope scope,Audio
         ((CosmosAUUnit*)au.owner.node.AUAudioUnit).cosmosHostName=(__bridge NSString*)name;
         return noErr;
     }
-    if(id==kAudioUnitProperty_PresentPreset){
+    if(presetID(id)){
         if(scope!=kAudioUnitScope_Global||elem||!data||bytes!=sizeof(AUPreset))return kAudio_ParamError;
         const auto& preset=*static_cast<const AUPreset*>(data);
-        if(preset.presetNumber>=0||!preset.presetName)return kAudioUnitErr_InvalidPropertyValue;
+        if(preset.presetNumber>=0){
+            if(preset.presetNumber>=128)return kAudioUnitErr_InvalidPropertyValue;
+            // Hosts may turn incoming PC into a native AU preset selection.
+            // This has no MIDI channel; source filtering belongs to the host.
+            au.engine->pendingPC=preset.presetNumber;return noErr;
+        }
+        if(!preset.presetName)return kAudioUnitErr_InvalidPropertyValue;
         au.owner.presetName=(__bridge NSString*)preset.presetName;
         return noErr;
     }

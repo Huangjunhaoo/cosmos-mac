@@ -53,6 +53,20 @@ public:
         int filter=channel.load();
         if((status&0xf0)==0xc0 && program<128 && (filter<0 || unsigned(filter)==(status&15)))pendingPC=int(program);
     }
+    // MIDI 1.0 channel voice packets and MIDI 2.0 Program Change share the
+    // existing channel filter and 128-slot bank; CC and SysEx stay non-actionable.
+    void programPackets(const uint32_t* words,unsigned count){
+        static constexpr unsigned sizes[16]={1,1,1,2,2,4,1,1,2,2,2,3,3,4,4,4};
+        for(unsigned i=0;i<count;){
+            const auto word=words[i];unsigned type=word>>28,step=sizes[type];
+            if(step>count-i)return;
+            if(((word>>16)&0xf0)==0xc0 && ((word>>24)&15)==0){
+                if(type==2)programMessage((word>>16)&255,(word>>8)&127);
+                else if(type==4)programMessage((word>>16)&255,(words[i+1]>>24)&127);
+            }
+            i+=step;
+        }
+    }
     std::atomic<int> channel{-1};
     std::atomic<bool> pc{true},bypass{false};
     std::atomic<unsigned> syncState{0}; // 0 free, 1 waiting for Live, 2 armed, 3 recording, 4 unavailable

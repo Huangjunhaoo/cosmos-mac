@@ -5,6 +5,7 @@
 #include "../app/program_library.hpp"
 @interface CosmosAUUnit : AUAudioUnit
 @property(atomic,copy) NSString* cosmosHostName;
+@property(nonatomic,copy) void (^presetDidChange)(void);
 - (CXLibrary*)library;
 - (cosmos_au::Engine*)engine;
 - (void)storeSlot:(unsigned)slot;

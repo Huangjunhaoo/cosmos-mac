@@ -16,6 +16,7 @@ bool supported(AVAudioFormat* f){
     AUAudioUnitBusArray *_inputs,*_outputs;
     AUAudioUnitBus *_in,*_out;
     AUParameterTree *_tree;
+    NSUInteger _publishedRevision;
     AUHostMusicalContextBlock _music;
     AUHostTransportStateBlock _transport;
     std::array<std::vector<float>,6> _scratch;
@@ -89,7 +90,17 @@ bool supported(AVAudioFormat* f){
     [_library load:0];
     _programTimer=dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0,0,dispatch_get_main_queue());
     dispatch_source_set_timer(_programTimer,dispatch_time(DISPATCH_TIME_NOW,30000000),30000000,5000000);
-    dispatch_source_set_event_handler(_programTimer,^{CosmosAUUnit*u=weak;if(!u)return;int pc=u.engine->pendingPC.exchange(-1);if(pc>=0)[u.library load:pc];});
+    dispatch_source_set_event_handler(_programTimer,^{
+        CosmosAUUnit*u=weak;if(!u)return;
+        int pc=u.engine->pendingPC.exchange(-1);if(pc>=0)[u.library load:pc];
+        if(u->_publishedRevision!=u.library.revision){
+            u->_publishedRevision=u.library.revision;
+            // Preset recall changes the engine directly. Publish those values
+            // on the main queue so native and AUv3 hosts refresh their caches.
+            for(AUParameter* p in u.parameterTree.allParameters)p.value=u.engine->values[p.address].load();
+            if(u.presetDidChange)u.presetDidChange();
+        }
+    });
     dispatch_resume(_programTimer);
     return self;
 }
@@ -152,8 +163,21 @@ bool supported(AVAudioFormat* f){
             while(event&&(event->head.eventSampleTime<=base+f||event->head.eventSampleTime==AUEventSampleTimeImmediate)){
                 switch(event->head.eventType){
                     case AURenderEventParameter:case AURenderEventParameterRamp:e.set(event->parameter.parameterAddress,event->parameter.value);break;
-                    // The component identity stays stable for existing Sets. Only host
-                    // parameter events are actionable, including on legacy MIDI routes.
+                    // Some hosts schedule MIDI on the inner AU instead of calling
+                    // the outer v2 MusicDeviceMIDIEvent adapter. Both feed the same
+                    // allocation-free PC mailbox; library IO stays on the main queue.
+                    case AURenderEventMIDI:
+                        if(event->MIDI.length>=2)e.programMessage(event->MIDI.data[0],event->MIDI.data[1]);
+                        break;
+                    case AURenderEventMIDIEventList:{
+                        const auto& list=event->MIDIEventsList.eventList;
+                        const auto* packet=&list.packet[0];
+                        for(UInt32 i=0;i<list.numPackets;++i){
+                            e.programPackets(packet->words,packet->wordCount);
+                            packet=MIDIEventPacketNext(packet);
+                        }
+                        break;
+                    }
                     default:break;
                 }
                 event=event->head.next;
