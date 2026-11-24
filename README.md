@@ -2,16 +2,18 @@
 
 Cosmos is an unofficial macOS implementation of the SOMA COSMOS drifting-memory looper. Record a phrase, then let it drift through stereo delays, granular textures or rhythmic repeats. Use the standalone app with an audio interface, or insert the Audio Unit on a track in Ableton Live or Logic Pro.
 
-**[Download Cosmos for Mac](https://github.com/Huangjunhaoo/cosmos-mac/releases/latest/download/COSMOS-Standalone-0.16.4-AU-0.1.13-Mac.zip)** · **[Installation guide in 15 languages](https://github.com/Huangjunhaoo/cosmos-mac/releases/latest/download/Cosmos-Installation-15-languages.pdf)**
+**[Download Cosmos for Mac](https://github.com/Huangjunhaoo/cosmos-mac/releases/latest/download/COSMOS-Standalone-0.16.4-AU-0.1.14-Mac.zip)** · **[Installation guide in 15 languages](https://github.com/Huangjunhaoo/cosmos-mac/releases/latest/download/Cosmos-Installation-15-languages.pdf)**
 
 **中文**　下载完整 ZIP，解压后打开 `00 - Install Cosmos.pdf`，点选语言即可查看安装步骤。完整包还包含独立版、AU 插件和 MIDI 踏板说明书。项目目录中的源码可供构建和修改。
 
-| Edition | Frozen version | Mac requirements |
+| Edition | Version | Mac requirements |
 | --- | --- | --- |
 | Standalone | 0.16.4 | macOS 13+ on Apple silicon or Intel |
-| Audio Unit (AUv2) | 0.1.13 | macOS 13+ on Apple silicon or Intel |
+| Audio Unit (AUv2) | 0.1.14 | macOS 13+ on Apple silicon or Intel |
 
-Both editions share 128 named preset slots. In the preset sidebar, select a slot and use **Load Selected Slot** to recall its sound or **Save to Selected Slot** to write the current sound there. Right-click an occupied slot to rename or delete it. Both editions show their version on the main panel. Use MIDI Program Change 0–127 to recall a saved sound with the sidebar closed. PC 0 is the default. In Live, route the MIDI track to the Cosmos AU and match its preset input channel. Find the AU under **Chicken Chukka → Cosmos**.
+Both editions share 128 named preset slots. In the preset sidebar, select a slot and use **Load Selected Slot** to recall its sound or **Save to Selected Slot** to write the current sound there. Right-click an occupied slot to rename or delete it. Both editions show their version on the main panel. Use MIDI Program Change 0–127 to recall a saved sound with the sidebar closed. PC 0 is the default. In Live, route the MIDI track to the Cosmos AU and match its preset input channel. Find the AU under **Chicken Chukka → Cosmos**. In Live, enable monitoring on the MIDI track and choose both the audio track and its Cosmos AU as the destination. Empty preset slots keep the current sound.
+
+AU 0.1.14 fixes scheduled MIDI Program Change reception and updates the host parameter display after a preset recall. Traditional PC, scheduled MIDI bytes, MIDI 1/2 UMP, channel filtering, native AU preset selection and empty-slot behavior passed processor tests; Live 12 recall and parameter refresh were verified with a local virtual MIDI source. Physical-controller and listening acceptance were not part of this check. Standalone remains 0.16.4.
 
 ### Play
 

@@ -1,65 +1,30 @@
 {
-  "status": "Final",
-  "date": "2026-11-07",
-  "products": [
-    {
-      "path": "Standalone/COSMOS.app",
-      "version": "0.16.4",
-      "build": "31",
-      "minimum_macos": "13.0",
-      "architecture": [
-        "arm64",
-        "x86_64"
-      ],
-      "executable_sha256": "b66f2fe9ba5f2d1d2af9726ac51975d1b32ebb1ccf4f0bbc122d569fab0f1d7d"
-    },
-    {
-      "path": "Audio Unit/Cosmos.component",
-      "version": "0.1.13",
-      "build": "15",
-      "minimum_macos": "13.0",
-      "architecture": [
-        "arm64",
-        "x86_64"
-      ],
-      "executable_sha256": "6cc8ee38c60d1870d026402c6f2b7f0083dd3bde6327a0c6bfc7b88f56ca7c4e"
-    }
+  "version": "0.1.14",
+  "build": 16,
+  "format": "Audio Unit v2 music effect",
+  "identity": "aumf CsL3 Csms",
+  "architectures": [
+    "arm64",
+    "x86_64"
   ],
-  "local_signing": true,
-  "apple_notarized": false,
+  "binary_sha256": "07f4572f863e5bc2b3d235e192ef8f549214eb34480a27d6cc4690b5c753b790",
+  "installed_sha256_matches": true,
+  "user_preset_and_midi_files_unchanged": true,
+  "processor_regression": "passed",
+  "auval": "passed",
+  "live_test": {
+    "source": "local virtual CoreMIDI, no hardware output",
+    "PC1": "MIX 0.23 -> 0.76, project embedded test slot",
+    "PC0": "MIX 0.76 -> 1.00, existing 4/4Drum Filler",
+    "PC127": "empty slot, MIX stays 1.00"
+  },
+  "standalone": "unchanged 0.16.4",
+  "physical_controller_tested": false,
+  "signed": "local ad-hoc",
+  "notarized": false,
+  "date": "2026-11-24",
   "share_package": {
-    "filename": "COSMOS-Standalone-0.16.4-AU-0.1.13-Mac.zip",
-    "bytes": 10396572,
-    "sha256": "0ee887618f3fea2b843f7c082d13499eacc9cd2c42b45fda29b4712f7543d36d"
-  },
-  "installation_guide": {
-    "filename": "Cosmos Mac/00 - Install Cosmos.pdf",
-    "pages": 16,
-    "sha256": "831f1154baaf00f6e5bf73f87a10390e05239e480eb73a334a692aaaf1e17a89"
-  },
-  "languages": [
-    "zh-Hans",
-    "zh-Hant",
-    "ja",
-    "en",
-    "es",
-    "fr",
-    "de",
-    "th",
-    "id",
-    "hi",
-    "vi",
-    "it",
-    "pt",
-    "ar",
-    "ko"
-  ],
-  "verified": {
-    "strict_signatures_after_unpack": true,
-    "standalone_preset_sidebar": true,
-    "factory": "Chicken Chukka: Cosmos",
-    "au_validation": true,
-    "selected_slot_save_and_load": true,
-    "context_menu_rename_and_delete": true
+    "filename": "COSMOS-Standalone-0.16.4-AU-0.1.14-Mac.zip",
+    "sha256": "34a3b718a2f25a7ad7cf7e00c937f73164b0e7f9213bed84f888882236c560da"
   }
 }

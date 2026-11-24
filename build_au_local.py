@@ -13,11 +13,11 @@ binary = contents / 'MacOS' / 'Cosmos'
 binary.parent.mkdir(parents=True, exist_ok=True)
 resources.mkdir(exist_ok=True)
 component = dict(name='Chicken Chukka: Cosmos', description='Cosmos Drifting Memory Station',
-                 type='aumf', subtype='CsL3', manufacturer='Csms', version=0x10D,
+                 type='aumf', subtype='CsL3', manufacturer='Csms', version=0x10E,
                  factoryFunction='CosmosLocalFactory', sandboxSafe=True, tags=['Effects', 'Delay'])
 plist = dict(CFBundleIdentifier='local.cosmos.live.component', CFBundleName='Cosmos', CFBundleDisplayName='Cosmos',
-             CFBundleExecutable=binary.name, CFBundlePackageType='BNDL', CFBundleVersion='15',
-             CFBundleShortVersionString='0.1.13', CFBundleInfoDictionaryVersion='6.0',
+             CFBundleExecutable=binary.name, CFBundlePackageType='BNDL', CFBundleVersion='16',
+             CFBundleShortVersionString='0.1.14', CFBundleInfoDictionaryVersion='6.0',
              LSMinimumSystemVersion='13.0', AudioComponents=[component])
 (contents / 'Info.plist').write_bytes(plistlib.dumps(plist))
 for path in (root / 'app/assets').iterdir():
